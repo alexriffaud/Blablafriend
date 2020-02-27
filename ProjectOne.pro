@@ -14,7 +14,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        src/main.cpp
+        src/DatabaseApplication.cpp \
+        src/MainApplication.cpp \
+        src/ModeApplication.cpp \
+        src/database/Database.cpp \
+        src/database/UserDAO.cpp \
+        src/main.cpp \
+        src/models/User.cpp
 
 RESOURCES += qml.qrc
 
@@ -28,3 +34,11 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    inc/DatabaseApplication.h \
+    inc/MainApplication.h \
+    inc/ModelApplication.h \
+    inc/database/Database.h \
+    inc/database/UserDAO.h \
+    inc/models/User.h
