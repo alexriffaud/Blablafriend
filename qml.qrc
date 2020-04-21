@@ -9,5 +9,9 @@
         <file>qml/LoginViewForm.ui.qml</file>
         <file>qml/LineEdit.qml</file>
         <file>qml/LineEditForm.ui.qml</file>
+        <file>qml/Button.qml</file>
+        <file>qml/ButtonForm.ui.qml</file>
+        <file>qml/SignUpView.qml</file>
+        <file>qml/SignUpViewForm.ui.qml</file>
     </qresource>
 </RCC>

@@ -1,10 +1,11 @@
 import QtQuick 2.4
 
 Item {
+    id: element
     width: 400
-    height: 400
-    property alias lineEdit1: lineEdit1
-    property alias lineEdit: lineEdit
+    height: 600
+    property alias mouseArea: mouseArea
+    property alias mouseArea1: mouseArea1
     Rectangle {
         id: rectangle
         gradient: Gradient {
@@ -36,31 +37,75 @@ Item {
             anchors.leftMargin: 102
             fillMode: Image.PreserveAspectFit
             source: "../res/logob.png"
+        }
 
-            Column {
-                id: column
-                x: 0
-                y: 194
-                width: 200
-                height: 136
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 20
+        LineEdit {
+            id: lineEdit
+            y: 226
+            anchors.right: parent.right
+            anchors.rightMargin: 100
+            anchors.left: parent.left
+            anchors.leftMargin: 100
 
-                LineEdit {
-                    id: lineEdit
-                }
+            labelText.text: "Username"
+        }
 
-                LineEdit {
-                    id: lineEdit1
-                }
-            }
+        LineEdit {
+            id: lineEdit1
+            y: 271
+            anchors.right: parent.right
+            anchors.rightMargin: 100
+            anchors.left: parent.left
+            anchors.leftMargin: 100
+
+            labelText.text: "Password"
+            textInput.echoMode: "Password"
+        }
+
+        Button {
+            id: button
+            x: 150
+            y: 352
+            width: 101
+            height: 30
+            anchors.horizontalCenter: parent.horizontalCenter
+            textButton.text: "Connexion"
+        }
+
+        Text {
+            id: element1
+            x: 172
+            y: 442
+            color: "#fbfbfb"
+            text: qsTr("Inscription")
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 12
+        }
+
+        MouseArea {
+            id: mouseArea
+            x: 151
+            y: 423
+            width: 100
+            height: 56
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        MouseArea {
+            id: mouseArea1
+            x: 138
+            y: 339
+            width: 124
+            height: 59
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
 }
 
 /*##^##
 Designer {
-    D{i:7;anchors_width:200;anchors_x:8}D{i:6;anchors_width:100;anchors_x:150;anchors_y:21}
+    D{i:6;anchors_width:100;anchors_x:150;anchors_y:21}D{i:7;anchors_y:226}D{i:8;anchors_y:271}
+D{i:9;anchors_x:150}
 }
 ##^##*/
 
