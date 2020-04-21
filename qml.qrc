@@ -1,7 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>res/logo.png</file>
+        <file>res/logob.png</file>
         <file>res/background-login.jpg</file>
+        <file>qml/Splashscreen.qml</file>
+        <file>qml/SplashscreenForm.ui.qml</file>
+        <file>qml/LoginView.qml</file>
+        <file>qml/LoginViewForm.ui.qml</file>
+        <file>qml/LineEdit.qml</file>
+        <file>qml/LineEditForm.ui.qml</file>
     </qresource>
 </RCC>
