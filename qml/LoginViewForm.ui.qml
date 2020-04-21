@@ -62,7 +62,7 @@ Item {
             textInput.echoMode: "Password"
         }
 
-        Button {
+        ButtonQML {
             id: button
             x: 150
             y: 352
@@ -105,7 +105,6 @@ Item {
 /*##^##
 Designer {
     D{i:6;anchors_width:100;anchors_x:150;anchors_y:21}D{i:7;anchors_y:226}D{i:8;anchors_y:271}
-D{i:9;anchors_x:150}
 }
 ##^##*/
 

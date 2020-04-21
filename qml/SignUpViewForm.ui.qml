@@ -116,7 +116,7 @@ Item {
                 height: 30
             }
 
-            ButtonForm {
+            ButtonQML {
                 id: buttonForm
                 x: 142
                 y: 454
@@ -130,3 +130,4 @@ Designer {
     D{i:7;anchors_height:498;anchors_width:384;anchors_x:8;anchors_y:94}
 }
 ##^##*/
+

@@ -1,6 +1,6 @@
 import QtQuick 2.4
 
-ButtonForm {
+ButtonQMLForm {
     rectangle1.visible: false
     mouseArea.onClicked:
     {
