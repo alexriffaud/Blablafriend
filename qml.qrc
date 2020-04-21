@@ -13,5 +13,7 @@
         <file>qml/SignUpViewForm.ui.qml</file>
         <file>qml/ButtonBBF.qml</file>
         <file>qml/ButtonBBFForm.ui.qml</file>
+        <file>qml/LicenceView.qml</file>
+        <file>qml/LicenceViewForm.ui.qml</file>
     </qresource>
 </RCC>
