@@ -4,6 +4,8 @@ Item {
     id: element
     width: 400
     height: 600
+    property alias element1: element1
+    property alias button: button
     property alias mouseArea: mouseArea
     property alias mouseArea1: mouseArea1
     Rectangle {
@@ -62,7 +64,7 @@ Item {
             textInput.echoMode: "Password"
         }
 
-        ButtonQML {
+        ButtonBBF {
             id: button
             x: 150
             y: 352

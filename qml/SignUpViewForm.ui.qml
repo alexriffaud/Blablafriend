@@ -116,10 +116,11 @@ Item {
                 height: 30
             }
 
-            ButtonQML {
+            ButtonBBF {
                 id: buttonForm
                 x: 142
                 y: 454
+                textButton.text: "Valider"
             }
         }
     }
