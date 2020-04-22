@@ -107,7 +107,7 @@ Window
             target: loginView;
             from: 1;
             to: 0;
-            duration: 1000
+            duration: 500
             running: false
         }
         OpacityAnimator
@@ -116,7 +116,7 @@ Window
             target: signupView;
             from: 0;
             to: 1;
-            duration: 1000
+            duration: 500
             running: false
         }
     }
@@ -126,5 +126,49 @@ Window
        id: signupView
        visible: false
        anchors.fill: parent
+
+       mouseArea.onClicked:
+       {
+            signupView.swipe()
+       }
+
+       function swipe()
+       {
+           licenceView.opacity = 0
+           licenceView.visible = true
+           animations3.start()
+       }
+    }
+
+    ParallelAnimation
+    {
+        id: animations3
+        running: false
+        OpacityAnimator
+        {
+            id: fadeOut3
+            target: signupView;
+            from: 1;
+            to: 0;
+            duration: 500
+            running: false
+        }
+        OpacityAnimator
+        {
+            id: fadeIn3
+            target: licenceView;
+            from: 0;
+            to: 1;
+            duration: 500
+            running: false
+        }
+    }
+
+    LicenceView
+    {
+        id: licenceView
+        anchors.fill: parent
+        visible: false
+        opacity: 0
     }
 }

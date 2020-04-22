@@ -4,6 +4,7 @@ import QtQuick.Controls 2.13
 Item {
     width: 400
     height: 600
+    property alias mouseArea: mouseArea
     property alias buttonForm: buttonForm
     property alias lineEdit7: lineEdit7
     property alias lineEdit6: lineEdit6
@@ -121,6 +122,18 @@ Item {
                 x: 142
                 y: 454
                 textButton.text: "Valider"
+            }
+
+            MouseArea {
+                id: mouseArea
+                y: 445
+                height: 47
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 6
+                anchors.right: parent.right
+                anchors.rightMargin: 128
+                anchors.left: parent.left
+                anchors.leftMargin: 128
             }
         }
     }

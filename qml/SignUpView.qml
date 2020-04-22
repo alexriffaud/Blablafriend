@@ -1,6 +1,7 @@
 import QtQuick 2.4
 
-SignUpViewForm {
+SignUpViewForm
+{
     lineEdit.labelText.text: "Email"
     lineEdit1.labelText.text: "Pseudo"
     lineEdit2.labelText.text: "Nom"
