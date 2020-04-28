@@ -12,7 +12,9 @@ Window
 //    width: Screen.desktopAvailableWidth
 //    height: Screen.desktopAvailableHeight
 
-    Rectangle {
+
+    Rectangle
+    {
         id: background
         anchors.fill: parent
         color: "black"
@@ -25,7 +27,7 @@ Window
         anchors.fill: parent
 
 
-        function wait()
+        function swipe()
         {
             loginView.opacity = 0
             loginView.visible = true
@@ -35,7 +37,7 @@ Window
         Timer
         {
             interval: 500; running: true; repeat: false
-            onTriggered: spashScreen.wait()
+            onTriggered: spashScreen.swipe()
         }
 
         ParallelAnimation
@@ -104,6 +106,7 @@ Window
         {
             profilView.opacity = 0
             profilView.visible = true
+            menu.visible = true
             animations5.start()
         }
 
@@ -192,7 +195,9 @@ Window
         {
             profilView.opacity = 0
             profilView.visible = true
+            menu.visible = true
             animations4.start()
+
         }
     }
 
@@ -250,5 +255,47 @@ Window
         anchors.fill: parent
         visible: false
         opacity: 0
+    }
+
+    MapView
+    {
+       id: mapView
+       anchors.fill: parent
+       visible: false
+       opacity: 0
+
+    }
+
+    Menu {
+        id: menu
+        visible: false
+        onIndexMenuChanged :
+        {
+            followMenu(indexMenu)
+        }
+
+        function followMenu(index)
+        {
+            switch(index)
+            {
+            case 1:
+                mapView.visible = false
+                profilView.visible = true
+                profilView.opacity = 1
+                break
+            case 2:
+                profilView.visible = false
+                mapView.visible = true
+                mapView.opacity = 1
+                break
+            case 3:
+                break
+            case 4:
+                break
+            case 5:
+                break
+            }
+        }
+
     }
 }

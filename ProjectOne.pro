@@ -1,4 +1,4 @@
-QT += quick
+QT += quick location
 
 TARGET = ProjectOne
 VERSION = 0.0.1

@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>res/logob.png</file>
+        <file>res/logob2.png</file>
         <file>res/background-login.jpg</file>
         <file>qml/Splashscreen.qml</file>
         <file>qml/SplashscreenForm.ui.qml</file>
@@ -19,5 +20,7 @@
         <file>qml/ProfilViewForm.ui.qml</file>
         <file>qml/MapView.qml</file>
         <file>qml/MapViewForm.ui.qml</file>
+        <file>qml/MenuModel.qml</file>
+        <file>qml/Menu.qml</file>
     </qresource>
 </RCC>
