@@ -7,15 +7,6 @@ import QtPositioning 5.6
 
 MapViewForm
 {
-//    property alias menuProfil: menu
-
-//    property int menuValue: menu.indexMenu
-//    Menu
-//    {
-//        id: menu
-
-//    }
-
     Plugin
     {
         id: mapPlugin

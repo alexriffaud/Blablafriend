@@ -22,5 +22,11 @@
         <file>qml/MapViewForm.ui.qml</file>
         <file>qml/MenuModel.qml</file>
         <file>qml/Menu.qml</file>
+        <file>qml/ParametersView.qml</file>
+        <file>qml/ParametersViewForm.ui.qml</file>
+        <file>qml/MyEventsView.qml</file>
+        <file>qml/MyEventsViewForm.ui.qml</file>
+        <file>qml/EventsView.qml</file>
+        <file>qml/EventsViewForm.ui.qml</file>
     </qresource>
 </RCC>
