@@ -95,6 +95,18 @@ Window
             animations2.start()
         }
 
+        mouseArea1.onClicked:
+        {
+             loginView.swipe2()
+        }
+
+        function swipe2()
+        {
+            profilView.opacity = 0
+            profilView.visible = true
+            animations5.start()
+        }
+
     }
 
     ParallelAnimation
@@ -167,6 +179,74 @@ Window
     LicenceView
     {
         id: licenceView
+        anchors.fill: parent
+        visible: false
+        opacity: 0
+
+        mouseArea.onClicked:
+        {
+             licenceView.swipe()
+        }
+
+        function swipe()
+        {
+            profilView.opacity = 0
+            profilView.visible = true
+            animations4.start()
+        }
+    }
+
+    ParallelAnimation
+    {
+        id: animations4
+        running: false
+        OpacityAnimator
+        {
+            id: fadeOut4
+            target: licenceView;
+            from: 1;
+            to: 0;
+            duration: 500
+            running: false
+        }
+        OpacityAnimator
+        {
+            id: fadeIn4
+            target: profilView;
+            from: 0;
+            to: 1;
+            duration: 500
+            running: false
+        }
+    }
+
+    ParallelAnimation
+    {
+        id: animations5
+        running: false
+        OpacityAnimator
+        {
+            id: fadeOut5
+            target: loginView;
+            from: 1;
+            to: 0;
+            duration: 500
+            running: false
+        }
+        OpacityAnimator
+        {
+            id: fadeIn5
+            target: profilView;
+            from: 0;
+            to: 1;
+            duration: 500
+            running: false
+        }
+    }
+
+    ProfilView
+    {
+        id: profilView
         anchors.fill: parent
         visible: false
         opacity: 0
