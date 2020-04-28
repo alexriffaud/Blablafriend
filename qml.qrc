@@ -15,5 +15,9 @@
         <file>qml/ButtonBBFForm.ui.qml</file>
         <file>qml/LicenceView.qml</file>
         <file>qml/LicenceViewForm.ui.qml</file>
+        <file>qml/ProfilView.qml</file>
+        <file>qml/ProfilViewForm.ui.qml</file>
+        <file>qml/MapView.qml</file>
+        <file>qml/MapViewForm.ui.qml</file>
     </qresource>
 </RCC>

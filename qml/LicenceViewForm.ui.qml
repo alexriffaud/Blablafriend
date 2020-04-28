@@ -4,6 +4,8 @@ import QtQuick.Controls 2.13
 Item {
     width: 400
     height: 400
+    property alias mouseArea: mouseArea
+    property alias buttonBBF: buttonBBF
     Rectangle {
         id: rectangle
         color: "#ffffff"
@@ -285,6 +287,11 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 14
             anchors.horizontalCenter: parent.horizontalCenter
+
+            MouseArea {
+                id: mouseArea
+                anchors.fill: parent
+            }
         }
 
 
