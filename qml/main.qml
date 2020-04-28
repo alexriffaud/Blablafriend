@@ -263,7 +263,30 @@ Window
        anchors.fill: parent
        visible: false
        opacity: 0
+    }
 
+    ParametersView
+    {
+        id: parametersView
+        anchors.fill: parent
+        visible: false
+        opacity: 0
+    }
+
+    MyEventsView
+    {
+        id: myEventsView
+        anchors.fill: parent
+        visible: false
+        opacity: 0
+    }
+
+    EventsView
+    {
+        id: eventsView
+        anchors.fill: parent
+        visible: false
+        opacity: 0
     }
 
     Menu {
@@ -276,23 +299,48 @@ Window
 
         function followMenu(index)
         {
+            menu.drawer.close()
             switch(index)
             {
             case 1:
+                parametersView.visible = false
+                myEventsView.visible = false
+                eventsView.visible = false
                 mapView.visible = false
                 profilView.visible = true
                 profilView.opacity = 1
                 break
             case 2:
+                parametersView.visible = false
+                myEventsView.visible = false
+                eventsView.visible = false
                 profilView.visible = false
                 mapView.visible = true
                 mapView.opacity = 1
                 break
             case 3:
+                parametersView.visible = false
+                eventsView.visible = false
+                mapView.visible = false
+                profilView.visible = false
+                myEventsView.visible = true
+                myEventsView.opacity = 1
                 break
             case 4:
+                parametersView.visible = false
+                myEventsView.visible = false
+                mapView.visible = false
+                profilView.visible = false
+                eventsView.visible = true
+                eventsView.opacity = 1
                 break
             case 5:
+                myEventsView.visible = false
+                eventsView.visible = false
+                mapView.visible = false
+                profilView.visible = false
+                parametersView.visible = true
+                parametersView.opacity = 1
                 break
             }
         }

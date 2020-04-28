@@ -7,6 +7,7 @@ import QtQuick.Controls.Styles 1.4
 Item
 {
     property int indexMenu: 1 
+    property alias drawer: drawer
 
 
     anchors.fill: parent
