@@ -28,5 +28,9 @@
         <file>qml/MyEventsViewForm.ui.qml</file>
         <file>qml/EventsView.qml</file>
         <file>qml/EventsViewForm.ui.qml</file>
+        <file>qml/AddEventDialog.qml</file>
+        <file>qml/AddEventDialogForm.ui.qml</file>
+        <file>qml/Datepicker.qml</file>
+        <file>qml/CircleButton.qml</file>
     </qresource>
 </RCC>
