@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QDir>
 #include <QIcon>
-#include "inc/MainApplication.h"
+#include "MainApplication.h"
 
 int main(int argc, char *argv[])
 {

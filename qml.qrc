@@ -32,5 +32,7 @@
         <file>qml/AddEventDialogForm.ui.qml</file>
         <file>qml/Datepicker.qml</file>
         <file>qml/CircleButton.qml</file>
+        <file>qml/AddEditEvent.qml</file>
+        <file>qml/AddEditEventForm.ui.qml</file>
     </qresource>
 </RCC>

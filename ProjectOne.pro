@@ -1,4 +1,4 @@
-QT += quick location
+QT += quick location network
 
 TARGET = ProjectOne
 VERSION = 0.0.1
@@ -18,20 +18,27 @@ HEADERS += \
     inc/DatabaseApplication.h \
     inc/MainApplication.h \
     inc/ModelApplication.h \
-    inc/database/Database.h \
     inc/database/UserDAO.h \
-    inc/models/User.h
+    inc/models/User.h \
+    inc/models/Event.h \
+    inc/tools/Enums.h
 
 SOURCES += \
         src/DatabaseApplication.cpp \
         src/MainApplication.cpp \
         src/ModeApplication.cpp \
-        src/database/Database.cpp \
         src/database/UserDAO.cpp \
         src/main.cpp \
-        src/models/User.cpp
+        src/models/User.cpp \
+        src/models/Event.cpp
 
 RESOURCES += qml.qrc
+
+INCLUDEPATH += inc/ \
+               src/ \
+               inc/models/ \
+               inc/database \
+               inc/tools
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

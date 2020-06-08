@@ -1,4 +1,4 @@
-#include "../../inc/database/UserDAO.h"
+#include "UserDAO.h"
 
 UserDAO::UserDAO()
 {

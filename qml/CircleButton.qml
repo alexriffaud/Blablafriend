@@ -5,6 +5,7 @@ Item
     id: circleButton
     height: 40
     width: 40
+    property alias area: area
 
     Rectangle
     {
@@ -18,11 +19,15 @@ Item
         Text
         {
             id: plus
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
             anchors.centerIn: parent
             text: qsTr("+")
             color: "white"
             font.pointSize: 25
             font.bold: true
+            y: -contentHeight + font.pixelSize
         }
 
         MouseArea
