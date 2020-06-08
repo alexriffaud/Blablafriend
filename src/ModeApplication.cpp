@@ -1,6 +1,9 @@
 #include "ModelApplication.h"
 
-ModelApplication::ModelApplication()
+ModelApplication::ModelApplication() :
+    _events(),
+    _currentUser(),
+    _users()
 {
 
 }

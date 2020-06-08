@@ -18,8 +18,11 @@ public:
     DatabaseApplication();
 
     void test();
+    bool testParser(QNetworkReply *reply);
 
-    bool isConnected() const;
+    bool isConnected();
+
+    UserDAO *userDAO();
 
 private slots:
     QVariant onResult(QNetworkReply *reply);

@@ -1,7 +1,7 @@
 #include "DatabaseApplication.h"
 
 DatabaseApplication::DatabaseApplication() :
-    _userDAO()
+    _userDAO(&_manager, &_request, _address)
 {
     _address = "http://localhost:3000/";
     _connection = false;
@@ -10,33 +10,42 @@ DatabaseApplication::DatabaseApplication() :
 
 QVariant DatabaseApplication::onResult(QNetworkReply *reply)
 {
+    QVariant result;
     //Check error
     if (reply->error())
     {
         qDebug() << reply->errorString();
-        return false;
+        result = false;
     }
-
-    //Check request
-    switch(_requestNum)
+    else
     {
-        case Request::TEST:
+        //Check request
+        switch(_requestNum)
         {
-            break;
-        }
-        default:
-        {
-            break;
+            case Request::TEST:
+            {
+                _connection = testParser(reply);
+
+                break;
+            }
+            default:
+            {
+                break;
+            }
         }
     }
 
-    QString answer = reply->readAll();
-    qDebug() << answer;
-    return answer;
+    return result;
 }
 
-bool DatabaseApplication::isConnected() const
+UserDAO *DatabaseApplication::userDAO()
 {
+    return &_userDAO;
+}
+
+bool DatabaseApplication::isConnected()
+{
+    test();
     return _connection;
 }
 
@@ -48,3 +57,14 @@ void DatabaseApplication::test()
     _manager.get(_request);
 }
 
+bool DatabaseApplication::testParser(QNetworkReply *reply)
+{
+    if (reply->error())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
