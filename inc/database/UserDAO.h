@@ -13,9 +13,11 @@
 class UserDAO
 {
 public:
-    UserDAO(QNetworkAccessManager *manager,QNetworkRequest *request, QString &address);
+    UserDAO(QNetworkAccessManager *manager, QNetworkRequest *request);
 
-    void connect(QString &name, QString &password);
+    void connect(QString name, QString password);
+
+    void setAddress(const QString &address);
 
 private:
     //Network

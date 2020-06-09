@@ -1,14 +1,14 @@
 #include "UserDAO.h"
 
-UserDAO::UserDAO(QNetworkAccessManager *manager, QNetworkRequest *request, QString &address)
+UserDAO::UserDAO(QNetworkAccessManager *manager, QNetworkRequest *request)
 {
     _manager = manager;
     _request = request;
-    _address = address;
 }
 
-void UserDAO::connect(QString &name, QString &password)
+
+
+void UserDAO::setAddress(const QString &address)
 {
-    _request->setUrl(QUrl(_address + "login/"+name+"/"+password));
-    _manager->get(*_request);
+    _address = address;
 }

@@ -4,7 +4,7 @@
 enum class Request
 {
     TEST = 0,
-    JOB,
+    CONNECT,
     EXPERIENCE,
     COUNT = 3
 };

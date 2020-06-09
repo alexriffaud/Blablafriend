@@ -3,6 +3,7 @@
 
 #include <QQmlApplicationEngine>
 #include <QDebug>
+#include <qqml.h>
 
 #include "DatabaseApplication.h"
 #include "ModelApplication.h"
@@ -13,7 +14,9 @@ class MainApplication : public QObject
 public:
     MainApplication(QQmlApplicationEngine *engine);
 
-    Q_INVOKABLE bool login(const QString &login, const QString &password);
+    Q_INVOKABLE void login(const QString &login, const QString &password);
+
+    DatabaseApplication *getDatabaseApplication();
 
 private:
     ModelApplication        _modelApplication;

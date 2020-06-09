@@ -4,10 +4,13 @@ Item {
     id: element
     width: 400
     height: 600
+    property alias lineEdit1: lineEdit1
+    property alias lineEdit: lineEdit
     property alias element1: element1
     property alias button: button
     property alias mouseArea: mouseArea
     property alias mouseArea1: mouseArea1
+
     Rectangle {
         id: rectangle
         gradient: Gradient {

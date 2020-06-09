@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QDir>
 #include <QIcon>
 #include "MainApplication.h"
@@ -21,6 +22,9 @@ int main(int argc, char *argv[])
 
 
     QQmlApplicationEngine engine;
+    MainApplication mainApp(&engine);
+    engine.rootContext()->setContextProperty("mainApp", &mainApp);
+    engine.rootContext()->setContextProperty("databaseApp", mainApp.getDatabaseApplication());
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -28,8 +32,6 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
-    MainApplication mainApp;
 
     return app.exec();
 }

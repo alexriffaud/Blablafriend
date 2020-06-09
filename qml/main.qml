@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Dialogs 1.2
 
 Window
 {
@@ -73,15 +74,30 @@ Window
 
         function login(username, password)
         {
-            if(mainApp.login(username,password) === true)
+            mainApp.login(username,password)
+        }
+
+        Connections
+        {
+            target: databaseApp
+            onChangeLoginState:
             {
-                customerView.visible = true
-                loginView.visible = false
-                customerView.initData()
+                if(databaseApp.isConnected() === true)
+                {
+                    swipe2()
+                }
+                else
+                {
+                    messageDialog.show(qsTr("Username or password invalid"))
+                }
             }
-            else
+
+            function swipe2()
             {
-                messageDialog.show(qsTr("Username or password invalid"))
+                profilView.opacity = 0
+                profilView.visible = true
+                menu.visible = true
+                animations5.start()
             }
         }
 
@@ -99,15 +115,19 @@ Window
 
         mouseArea1.onClicked:
         {
-             loginView.swipe2()
+
+             login(lineEdit.textInput.text, lineEdit1.textInput.text)
         }
 
-        function swipe2()
-        {
-            profilView.opacity = 0
-            profilView.visible = true
-            menu.visible = true
-            animations5.start()
+
+
+        MessageDialog {
+            id: messageDialog
+            title: qsTr("Error login")
+            function show(message) {
+                messageDialog.text = message;
+                messageDialog.open();
+            }
         }
 
     }

@@ -7,18 +7,15 @@ MainApplication::MainApplication(QQmlApplicationEngine *engine) :
     _engine = engine;
 }
 
-bool MainApplication::login(const QString &login, const QString &password)
+void MainApplication::login(const QString &login, const QString &password)
 {
     qDebug() << "MainApplication::login";
 
-    if(_databaseApplication.isConnected())
-    {
-        qDebug() << "ok";
-        return true;
-    }
-    else
-    {
-        qDebug() << "fail";
-        return false;
-    }
+    _databaseApplication.connect(login, password);
+
+}
+
+DatabaseApplication *MainApplication::getDatabaseApplication()
+{
+    return &_databaseApplication;
 }
