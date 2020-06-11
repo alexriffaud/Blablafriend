@@ -1,13 +1,11 @@
 #include "DatabaseApplication.h"
 
-DatabaseApplication::DatabaseApplication() :
-    _userDAO(&_manager, &_request)
+DatabaseApplication::DatabaseApplication(ModelApplication *modelApplication)
 {
+    _modelApplication = modelApplication;
     _address = "http://localhost:3000/";
-    _userDAO.setAddress(_address);
     _connectionState = false;
     _isConnected = false;
-    QObject::connect(&_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onResult(QNetworkReply*)));
 }
 
 QVariant DatabaseApplication::onResult(QNetworkReply *reply)
@@ -31,6 +29,12 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
             emit changeLoginState();
             break;
         }
+        case Request::CREATEUSER:
+        {
+            qDebug() << "Request::CREATEUSER";
+
+            break;
+        }
         default:
         {
             break;
@@ -40,29 +44,32 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
     return result;
 }
 
+
 void DatabaseApplication::postRequest(QByteArray & postData)
 {
-    QUrl url = QUrl(_address +"/");
+    qDebug() << "DatabaseApplication::postRequest";
 
-    QHttpMultiPart http;
+    _requestNum = Request::CREATEUSER;
 
-    QHttpPart receiptPart;
-    receiptPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"data\""));
-    receiptPart.setBody(postData);
+    QUrl url(_address + "user");
+    QNetworkRequest request(url);
 
-    http.append(receiptPart);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    _manager.post(QNetworkRequest(url), &http);
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(onResult(QNetworkReply*)));
+
+    // FIXME for debug
+    qDebug() << "Sync" << QString::fromUtf8(postData.data(), postData.size());
+
+    manager->post(request, postData);
 }
 
 bool DatabaseApplication::isConnected() const
 {
     return _isConnected;
-}
-
-UserDAO *DatabaseApplication::userDAO()
-{
-    return &_userDAO;
 }
 
 bool DatabaseApplication::isDBConnected()
@@ -75,8 +82,13 @@ void DatabaseApplication::test()
 {
     _requestNum = Request::TEST;
 
+    QNetworkAccessManager * mgr = new QNetworkAccessManager(this);
+
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),this,SLOT(onResult(QNetworkReply*)));
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),mgr,SLOT(deleteLater()));
+
     _request.setUrl(QUrl(_address + "test"));
-    _manager.get(_request);
+    mgr->get(_request);
 }
 
 bool DatabaseApplication::testParser(QNetworkReply *reply)
@@ -95,32 +107,52 @@ void DatabaseApplication::connect(QString name, QString password)
 {
     _requestNum = Request::CONNECT;
 
+    QNetworkAccessManager * mgr = new QNetworkAccessManager(this);
+
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),this,SLOT(onResult(QNetworkReply*)));
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),mgr,SLOT(deleteLater()));
+
     _request.setUrl(QUrl(_address + "login/"+name+"/"+password));
-    _manager.get(_request);
+    mgr->get(_request);
 }
 
 bool DatabaseApplication::connectParser(QNetworkReply *reply)
 {
+    QString data = reply->readAll();
+    qDebug() << data;
+
     bool result = false;
-    if (reply->error())
+    if (reply->error() || data.size() < 5)
     {
         result = false;
     }
     else
     {
-        QString data = reply->readAll();
-        QJsonDocument jsonResponse = QJsonDocument::fromJson(data.toUtf8());
-        QJsonObject jsonObject = jsonResponse.object();
+        data.replace("[", "");
+        data.replace("]", "");
+        data.replace("{", "");
+        data.replace("}", "");
+        data.replace(':', "");
+        data.replace(",", "");
+        data.replace('"', "/");
+        data.replace("//", "/");
 
-        if(data.size() > 5)
-        {
-            result = true;
-        }
-        else
-        {
-            result = false;
-        }
+        data.remove(0,1);
 
+        QStringList dataSplitted = data.split("/");
+
+        _modelApplication->currentUser()->setID(dataSplitted[1].toInt());
+        _modelApplication->currentUser()->setLogin(dataSplitted[3]);
+        _modelApplication->currentUser()->setEmail(dataSplitted[9]);
+        _modelApplication->currentUser()->setLastname(dataSplitted[7]);
+        _modelApplication->currentUser()->setFirstname(dataSplitted[5]);
+
+        QString birthday = dataSplitted[13].split("T")[0];
+        _modelApplication->currentUser()->setBirthday(QDate(birthday.split("-")[0].toInt(),birthday.split("-")[1].toInt(),birthday.split("-")[2].toInt()));
+        _modelApplication->currentUser()->setCity(dataSplitted[11]);
+        _modelApplication->currentUser()->setDescription(dataSplitted[19]);
+
+        result = true;
     }
     return result;
 }

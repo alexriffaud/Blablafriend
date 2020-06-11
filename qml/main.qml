@@ -84,11 +84,18 @@ Window
             {
                 if(databaseApp.isConnected() === true)
                 {
+                    profilView.element.text = currentUser.fullName()
+                    profilView.element1.text = currentUser.city()
+                    profilView.element2.text = currentUser.login()
+                    profilView.element3.text = currentUser.email()
+                    profilView.element4.text = currentUser.birthday()
+                    profilView.element5.text = currentUser.description()
+
                     swipe2()
                 }
                 else
                 {
-                    messageDialog.show(qsTr("Username or password invalid"))
+                    messageDialog.show(qsTr("Login ou mot de passe invalide"))
                 }
             }
 
@@ -106,12 +113,15 @@ Window
             loginView.swipe()
         }
 
+
+
         function swipe()
         {
-            signupView.opacity = 0
-            signupView.visible = true
-            animations2.start()
+            licenceView.opacity = 0
+            licenceView.visible = true
+            animations3.start()
         }
+
 
         mouseArea1.onClicked:
         {
@@ -156,6 +166,26 @@ Window
         }
     }
 
+    LicenceView
+    {
+        id: licenceView
+        anchors.fill: parent
+        visible: false
+        opacity: 0
+
+        mouseArea.onClicked:
+        {
+             licenceView.swipe()
+        }
+
+        function swipe()
+        {
+            signupView.opacity = 0
+            signupView.visible = true
+            animations2.start()
+        }
+    }
+
     SignUpView
     {
        id: signupView
@@ -164,14 +194,53 @@ Window
 
        mouseArea.onClicked:
        {
-            signupView.swipe()
+           if(lineEdit.textInput.text === "" ||
+                   lineEdit1.textInput.text === "" ||
+                   lineEdit2.textInput.text === "" ||
+                   lineEdit3.textInput.text === "" ||
+                   lineEdit5.textInput.text === "" ||
+                   lineEdit6.textInput.text === "" ||
+                   lineEdit7.textInput.text === "")
+           {
+               messageDialog.show(qsTr("Erreur, un ou plusieurs champs sont invalides"))
+           }
+           else
+           {
+               if(mainApp.makeData(lineEdit.textInput.text,
+                                   lineEdit1.textInput.text,
+                                   lineEdit2.textInput.text,
+                                   lineEdit3.textInput.text,
+                                   lineEdit4.textInput.text,
+                                   lineEdit5.textInput.text,
+                                   lineEdit6.textInput.text,
+                                   lineEdit7.textInput.text,
+                                   lineEdit9.textInput.text))
+               {
+                   profilView.element.text = currentUser.fullName()
+                   profilView.element1.text = currentUser.city()
+                   profilView.element2.text = currentUser.login()
+                   profilView.element3.text = currentUser.email()
+                   profilView.element4.text = currentUser.birthday()
+                   profilView.element5.text = currentUser.description()
+
+                   signupView.swipe()
+               }
+               else
+               {
+                   messageDialog.show(qsTr("Erreur, les mots de passe doivent être identiques"))
+               }
+               console.log("wtf")
+           }
        }
+
 
        function swipe()
        {
-           licenceView.opacity = 0
-           licenceView.visible = true
-           animations3.start()
+           profilView.opacity = 0
+           profilView.visible = true
+           menu.visible = true
+           animations4.start()
+
        }
     }
 
@@ -199,27 +268,7 @@ Window
         }
     }
 
-    LicenceView
-    {
-        id: licenceView
-        anchors.fill: parent
-        visible: false
-        opacity: 0
 
-        mouseArea.onClicked:
-        {
-             licenceView.swipe()
-        }
-
-        function swipe()
-        {
-            profilView.opacity = 0
-            profilView.visible = true
-            menu.visible = true
-            animations4.start()
-
-        }
-    }
 
     ParallelAnimation
     {

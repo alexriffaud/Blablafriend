@@ -3,7 +3,8 @@
 
 #include <QQmlApplicationEngine>
 #include <QDebug>
-#include <qqml.h>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include "DatabaseApplication.h"
 #include "ModelApplication.h"
@@ -15,8 +16,12 @@ public:
     MainApplication(QQmlApplicationEngine *engine);
 
     Q_INVOKABLE void login(const QString &login, const QString &password);
+    Q_INVOKABLE bool makeData(QString email, QString login, QString lastname, QString firstname, QString birthday, QString city, QString password1, QString password2, QString description);
 
     DatabaseApplication *getDatabaseApplication();
+    Q_INVOKABLE User *getCurrentUser();
+
+    Q_INVOKABLE ModelApplication *getModelApplication();
 
 private:
     ModelApplication        _modelApplication;

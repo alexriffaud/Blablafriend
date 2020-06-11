@@ -26,6 +26,7 @@ Item {
     }
 
     ListView {
+        id: listView
         anchors.fill: parent
 
         model: modelMyEvents
@@ -36,6 +37,16 @@ Item {
             Text {
                 text: name
             }
+        }
+
+        CircleButton {
+            id: circleButton
+            x: 352
+            y: 352
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 8
         }
     }
 }

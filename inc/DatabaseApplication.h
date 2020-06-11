@@ -7,12 +7,11 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QJsonArray>
 #include <QHttpMultiPart>
+#include <QJsonDocument>
+#include <QJsonObject>
 
-#include "UserDAO.h"
+#include "ModelApplication.h"
 #include "Enums.h"
 
 class DatabaseApplication : public QObject
@@ -20,7 +19,7 @@ class DatabaseApplication : public QObject
     Q_OBJECT
     Q_PROPERTY(bool _isConnected MEMBER _isConnected NOTIFY changeLoginState)
 public:
-    DatabaseApplication();
+    DatabaseApplication(ModelApplication *modelApplication);
 
     void test();
     bool testParser(QNetworkReply *reply);
@@ -32,8 +31,6 @@ public:
 
     void postRequest(QByteArray & postData);
 
-    UserDAO *userDAO();
-
     Q_INVOKABLE bool isConnected() const;
 
 private slots:
@@ -43,11 +40,9 @@ signals:
     void changeLoginState();
 
 private:
-    //DAO
-    UserDAO                 _userDAO;
+    ModelApplication        *_modelApplication;
 
     //Network
-    QNetworkAccessManager   _manager;
     QNetworkRequest         _request;
 
     //API

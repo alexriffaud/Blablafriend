@@ -5,7 +5,7 @@ enum class Request
 {
     TEST = 0,
     CONNECT,
-    EXPERIENCE,
+    CREATEUSER,
     COUNT = 3
 };
 

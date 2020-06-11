@@ -12,7 +12,7 @@ Item {
         id: rectangle
         color: "#ffffff"
         anchors.left: parent.left
-        anchors.leftMargin: 65
+        anchors.leftMargin: 80
         anchors.right: parent.right
         anchors.rightMargin: 0
         anchors.top: parent.top
@@ -30,7 +30,7 @@ Item {
         id: textInput
         text: qsTr("Text Input")
         anchors.left: parent.left
-        anchors.leftMargin: 73
+        anchors.leftMargin: 85
         anchors.top: parent.top
         anchors.topMargin: 8
         anchors.bottom: parent.bottom

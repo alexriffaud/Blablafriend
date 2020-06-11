@@ -3,6 +3,13 @@ import QtQuick 2.4
 Item {
     width: 400
     height: 800
+    property alias element4: element4
+    property alias image: image
+    property alias element5: element5
+    property alias element3: element3
+    property alias element2: element2
+    property alias element1: element1
+    property alias element: element
 
     Rectangle {
         id: rectangle
@@ -121,6 +128,10 @@ Item {
 
         ListView {
             id: listView
+            opacity: 0
+            visible: true
+            highlightRangeMode: ListView.NoHighlightRange
+            highlightFollowsCurrentItem: true
             anchors.top: parent.top
             anchors.topMargin: 297
             anchors.right: parent.right

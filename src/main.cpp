@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     MainApplication mainApp(&engine);
     engine.rootContext()->setContextProperty("mainApp", &mainApp);
     engine.rootContext()->setContextProperty("databaseApp", mainApp.getDatabaseApplication());
+    engine.rootContext()->setContextProperty("currentUser", mainApp.getModelApplication()->currentUser());
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

@@ -8,6 +8,11 @@ ModelApplication::ModelApplication() :
 
 }
 
+ModelApplication::~ModelApplication()
+{
+
+}
+
 QList<Event> *ModelApplication::events()
 {
     return& _events;
@@ -23,17 +28,7 @@ User *ModelApplication::currentUser()
     return &_currentUser;
 }
 
-void ModelApplication::setCurrentUser(const User &currentUser)
-{
-    _currentUser = currentUser;
-}
-
 QList<User> *ModelApplication::users()
 {
     return &_users;
-}
-
-void ModelApplication::setUsers(const QList<User> &users)
-{
-    _users = users;
 }
