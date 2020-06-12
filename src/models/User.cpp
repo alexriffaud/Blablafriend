@@ -114,3 +114,13 @@ QString User::fullName()
 {
     return _lastname.toUpper() + " " + _firstname;
 }
+
+QList<Event> *User::events()
+{
+    return &_events;
+}
+
+void User::setEvents(const QList<Event> &events)
+{
+    _events = events;
+}

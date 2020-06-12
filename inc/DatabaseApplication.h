@@ -10,6 +10,7 @@
 #include <QHttpMultiPart>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
 #include "ModelApplication.h"
 #include "Enums.h"
@@ -31,7 +32,14 @@ public:
 
     void postRequest(QByteArray & postData);
 
+    void getAllEvents();
+    bool parseAllEvents(QNetworkReply *reply);
+
+    void getUserEvents();
+    bool parseUserEvents(QNetworkReply *reply);
+
     Q_INVOKABLE bool isConnected() const;
+    Q_INVOKABLE void disconnect();
 
 private slots:
     QVariant onResult(QNetworkReply *reply);

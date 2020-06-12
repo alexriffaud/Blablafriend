@@ -3,6 +3,7 @@ import QtQuick 2.4
 Item {
     width: 400
     height: 800
+    property alias rectangle3: rectangle3
     property alias element4: element4
     property alias image: image
     property alias element5: element5
@@ -183,6 +184,20 @@ Item {
             }
         }
 
+        Rectangle {
+            id: rectangle3
+            x: 249
+            width: 29
+            height: 29
+            color: "#ffffff"
+            radius: 1
+            anchors.top: parent.top
+            anchors.topMargin: 49
+            anchors.right: parent.right
+            anchors.rightMargin: 122
+            border.width: 1
+        }
+
     }
 
     Text {
@@ -201,10 +216,11 @@ Item {
 
 /*##^##
 Designer {
-    D{i:7;anchors_height:112;anchors_width:135;anchors_x:129;anchors_y:-23}D{i:6;anchors_y:56}
+    D{i:7;anchors_height:112;anchors_width:135;anchors_x:129;anchors_y:"-23"}D{i:6;anchors_y:56}
 D{i:8;anchors_x:8;anchors_y:28}D{i:9;anchors_x:8;anchors_y:28}D{i:10;anchors_x:8;anchors_y:28}
 D{i:11;anchors_x:8;anchors_y:28}D{i:12;anchors_x:8;anchors_y:28}D{i:13;anchors_width:400;anchors_x:0;anchors_y:251}
-D{i:14;anchors_height:495;anchors_width:384;anchors_x:8;anchors_y:297}D{i:24;anchors_x:8;anchors_y:28}
+D{i:14;anchors_height:495;anchors_width:384;anchors_x:8;anchors_y:297}D{i:24;anchors_x:8;anchors_y:49}
+D{i:25;anchors_x:8;anchors_y:28}
 }
 ##^##*/
 

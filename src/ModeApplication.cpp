@@ -1,7 +1,7 @@
 #include "ModelApplication.h"
 
 ModelApplication::ModelApplication() :
-    _events(),
+    _allEvents(),
     _currentUser(),
     _users()
 {
@@ -15,12 +15,12 @@ ModelApplication::~ModelApplication()
 
 QList<Event> *ModelApplication::events()
 {
-    return& _events;
+    return& _allEvents;
 }
 
 void ModelApplication::setEvents(const QList<Event> &events)
 {
-    _events = events;
+    _allEvents = events;
 }
 
 User *ModelApplication::currentUser()

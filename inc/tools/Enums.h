@@ -6,7 +6,9 @@ enum class Request
     TEST = 0,
     CONNECT,
     CREATEUSER,
-    COUNT = 3
+    DISCONNECT,
+    ALLEVENTS,
+    USEREVENTS = 5
 };
 
 

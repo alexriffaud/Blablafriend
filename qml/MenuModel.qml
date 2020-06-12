@@ -27,4 +27,9 @@ ListModel
         number: 5
         name: "Paramètres"
     }
+    ListElement
+    {
+        number: 6
+        name: "Déconnexion"
+    }
 }

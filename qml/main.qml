@@ -91,6 +91,8 @@ Window
                     profilView.element4.text = currentUser.birthday()
                     profilView.element5.text = currentUser.description()
 
+                    profilView.rectangle3.color = "green"
+
                     swipe2()
                 }
                 else
@@ -222,6 +224,8 @@ Window
                    profilView.element3.text = currentUser.email()
                    profilView.element4.text = currentUser.birthday()
                    profilView.element5.text = currentUser.description()
+
+                   profilView.rectangle3.color = "green"
 
                    signupView.swipe()
                }
@@ -358,6 +362,20 @@ Window
         opacity: 0
     }
 
+    MessageDialog {
+        id: messageDialogQuit
+        title: "Déconnexion"
+        text: "Voulez-vous déconnecter de l'application."
+
+        standardButtons: StandardButton.Yes | StandardButton.Abort
+        onAccepted: {
+            Qt.quit()
+        }
+        onRejected: {
+            messageDialogQuit.close()
+        }
+    }
+
     Menu {
         id: menu
         visible: false
@@ -410,6 +428,9 @@ Window
                 profilView.visible = false
                 parametersView.visible = true
                 parametersView.opacity = 1
+                break
+            case 6:
+                messageDialogQuit.open()
                 break
             }
         }

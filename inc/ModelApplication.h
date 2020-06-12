@@ -21,7 +21,7 @@ public:
     QList<User> *users();
 
 private:
-    QList<Event>   _events;
+    QList<Event>   _allEvents;
     User           _currentUser;
     QList<User>    _users;
 };
