@@ -47,9 +47,6 @@ public:
 
     Q_INVOKABLE QString fullName();
 
-    Q_INVOKABLE QList<Event> *events();
-    void setEvents(const QList<Event> &events);
-
 private:
     int     _ID;
     QString _login;
@@ -61,8 +58,6 @@ private:
     QString _localization;
     int     _isLogged;
     QDate   _birthday;
-
-    QList<Event>    _events;
 };
 
 #endif // USER_H

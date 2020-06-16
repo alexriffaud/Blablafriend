@@ -8,7 +8,9 @@ enum class Request
     CREATEUSER,
     DISCONNECT,
     ALLEVENTS,
-    USEREVENTS = 5
+    USEREVENTS,
+    CREATEEVENT,
+    EVENT = 7
 };
 
 

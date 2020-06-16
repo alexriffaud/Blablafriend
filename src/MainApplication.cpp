@@ -5,6 +5,7 @@ MainApplication::MainApplication(QQmlApplicationEngine *engine) :
     _databaseApplication(&_modelApplication)
 {
     _engine = engine;
+    _databaseApplication.getAllEvents();
 }
 
 void MainApplication::login(const QString &login, const QString &password)
@@ -30,9 +31,10 @@ ModelApplication *MainApplication::getModelApplication()
     return &_modelApplication;
 }
 
-bool MainApplication::makeData(QString email, QString login, QString lastname, QString firstname, QString birthday, QString city, QString password1, QString password2, QString description)
+bool MainApplication::makeUserData(QString email, QString login, QString lastname, QString firstname, QString birthday, QString city, QString password1, QString password2, QString description)
 {
     qDebug() << "MainApplication::makeData";
+
     if(password1 != password2)
     {
         return false;
@@ -51,19 +53,33 @@ bool MainApplication::makeData(QString email, QString login, QString lastname, Q
         user["description"] = description;
         user["islogged"] = 0;
 
-        _modelApplication.currentUser()->setLogin(login);
-        _modelApplication.currentUser()->setEmail(email);
-        _modelApplication.currentUser()->setLastname(lastname);
-        _modelApplication.currentUser()->setFirstname(firstname);
-        _modelApplication.currentUser()->setBirthday(QDate(birthday.split("-")[0].toInt(),birthday.split("-")[1].toInt(),birthday.split("-")[2].toInt()));
-        _modelApplication.currentUser()->setCity(city);
-        _modelApplication.currentUser()->setDescription(description);
+        _databaseApplication.connect(login, password1);
 
         QJsonDocument doc(user);
         QByteArray bytes = doc.toJson();
 
-        _databaseApplication.postRequest(bytes);
+        _databaseApplication.postUserRequest(bytes);
 
         return true;
     }
+}
+
+bool MainApplication::makeEventData(QString name, QString description, QString date, QString localization)
+{
+    qDebug() << "MainApplication::makeEventData";
+
+    QJsonObject event;
+    event["name"] = name;
+    event["description"] = description;
+    event["date"] = date;
+    event["localization"] = localization;
+    event["idUser"] = _modelApplication.currentUser()->ID();
+
+    QJsonDocument doc(event);
+    QByteArray bytes = doc.toJson();
+
+    _databaseApplication.postEventRequest(bytes);
+
+    return true;
+
 }

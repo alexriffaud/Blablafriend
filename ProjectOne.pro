@@ -18,19 +18,19 @@ HEADERS += \
     inc/DatabaseApplication.h \
     inc/MainApplication.h \
     inc/ModelApplication.h \
-    inc/database/UserDAO.h \
     inc/models/User.h \
     inc/models/Event.h \
-    inc/tools/Enums.h
+    inc/tools/Enums.h \
+    inc/tools/EventList.h
 
 SOURCES += \
         src/DatabaseApplication.cpp \
         src/MainApplication.cpp \
         src/ModeApplication.cpp \
-        src/database/UserDAO.cpp \
         src/main.cpp \
         src/models/User.cpp \
-        src/models/Event.cpp
+        src/models/Event.cpp \
+    src/tools/EventList.cpp
 
 RESOURCES += qml.qrc
 

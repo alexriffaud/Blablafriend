@@ -30,13 +30,19 @@ public:
     void connect(QString name, QString password);
     bool connectParser(QNetworkReply *reply);
 
-    void postRequest(QByteArray & postData);
+    void postUserRequest(QByteArray & postData);
 
     void getAllEvents();
     bool parseAllEvents(QNetworkReply *reply);
 
     void getUserEvents();
     bool parseUserEvents(QNetworkReply *reply);
+
+    void postEventRequest(QByteArray & postData);
+    void getEvent();
+    bool parseEvent(QNetworkReply *reply);
+
+    void getEvent(QString name, int idUser, QString description);
 
     Q_INVOKABLE bool isConnected() const;
     Q_INVOKABLE void disconnect();

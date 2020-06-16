@@ -3,11 +3,11 @@ import QtQuick 2.4
 Item {
     width: 260
     height: 311
+    property alias lineEdit3: lineEdit3
     property alias buttonBBF1: buttonBBF1
     property alias buttonBBF: buttonBBF
     property alias element: element
     property alias lineEdit2: lineEdit2
-    property alias datepicker: datepicker
     property alias lineEdit1: lineEdit1
     property alias lineEdit: lineEdit
 
@@ -17,7 +17,7 @@ Item {
         color: "#ffffff"
         anchors.bottomMargin: 0
         anchors.rightMargin: 0
-        opacity: 0.3
+        opacity: 0.8
         anchors.fill: parent
     }
 
@@ -47,8 +47,6 @@ Item {
             anchors.top: parent.top
             anchors.topMargin: 55
             anchors.horizontalCenter: parent.horizontalCenter
-
-
         }
 
         LineEdit {
@@ -59,21 +57,12 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        Datepicker {
-            id: datepicker
-            x: 7
-            width: 247
-            height: 39
-            anchors.top: parent.top
-            anchors.topMargin: 146
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
         LineEdit {
             id: lineEdit2
             x: 8
+            anchors.horizontalCenterOffset: 0
             anchors.top: parent.top
-            anchors.topMargin: 204
+            anchors.topMargin: 177
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -91,12 +80,25 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 14
         }
+
+        LineEdit {
+            id: lineEdit3
+            x: 1
+            y: 6
+            anchors.horizontalCenterOffset: 0
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 141
+        }
     }
 }
 
+
+
+
 /*##^## Designer {
     D{i:1;anchors_height:200;anchors_width:200;anchors_x:65;anchors_y:75}D{i:3;anchors_x:8;anchors_y:8}
-D{i:4;anchors_y:55}D{i:5;anchors_y:103}D{i:6;anchors_y:146}D{i:7;anchors_y:204}D{i:8;anchors_x:8}
-D{i:9;anchors_x:152}D{i:2;anchors_height:200;anchors_width:200}
+D{i:4;anchors_y:55}D{i:5;anchors_y:103}D{i:6;anchors_y:204}D{i:7;anchors_x:8}D{i:8;anchors_x:152}
+D{i:9;anchors_y:103}D{i:2;anchors_height:200;anchors_width:200}
 }
  ##^##*/

@@ -208,7 +208,7 @@ Window
            }
            else
            {
-               if(mainApp.makeData(lineEdit.textInput.text,
+               if(mainApp.makeUserData(lineEdit.textInput.text,
                                    lineEdit1.textInput.text,
                                    lineEdit2.textInput.text,
                                    lineEdit3.textInput.text,

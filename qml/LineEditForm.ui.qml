@@ -4,7 +4,6 @@ Item {
     id: element1
     width: 200
     height: 30
-    property alias mouseArea: mouseArea
     property alias textInput: textInput
     property alias labelText: labelText
 
@@ -19,16 +18,11 @@ Item {
         anchors.topMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
-
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-        }
     }
 
     TextInput {
         id: textInput
-        text: qsTr("Text Input")
+        text: qsTr("")
         anchors.left: parent.left
         anchors.leftMargin: 85
         anchors.top: parent.top

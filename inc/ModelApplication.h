@@ -6,24 +6,28 @@
 
 #include "User.h"
 #include "Event.h"
+#include "EventList.h"
 
-class ModelApplication
+class ModelApplication : public QObject
 {
+    Q_OBJECT
 public:
     ModelApplication();
     ~ModelApplication();
 
-    QList<Event> *events();
-    void setEvents(const QList<Event> &events);
+    Q_INVOKABLE EventList *events();
 
     Q_INVOKABLE User *currentUser();
 
     QList<User> *users();
 
+    Q_INVOKABLE EventList *userEvents();
+
 private:
-    QList<Event>   _allEvents;
-    User           _currentUser;
-    QList<User>    _users;
+    EventList           _allEvents;
+    EventList           _userEvents;
+    User                _currentUser;
+    QList<User>         _users;
 };
 
 #endif // MODELAPPLICATION_H

@@ -6,8 +6,6 @@ DatabaseApplication::DatabaseApplication(ModelApplication *modelApplication)
     _address = "http://localhost:3000/";
     _connectionState = false;
     _isConnected = false;
-
-    getAllEvents();
 }
 
 QVariant DatabaseApplication::onResult(QNetworkReply *reply)
@@ -28,6 +26,7 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
             qDebug() << "Request::CONNECT";
             _isConnected = connectParser(reply);
             result = _isConnected;
+            getUserEvents();
             emit changeLoginState();
             break;
         }
@@ -49,6 +48,18 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
             parseUserEvents(reply);
             break;
         }
+        case Request::CREATEEVENT:
+        {
+            qDebug() << "Request::CREATEEVENT";
+            parseEvent(reply);
+            break;
+        }
+        case Request::EVENT:
+        {
+            qDebug() << "Request::EVENT";
+            parseEvent(reply);
+            break;
+        }
         default:
         {
             break;
@@ -59,13 +70,32 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
 }
 
 
-void DatabaseApplication::postRequest(QByteArray & postData)
+void DatabaseApplication::postUserRequest(QByteArray & postData)
 {
     qDebug() << "DatabaseApplication::postRequest";
 
     _requestNum = Request::CREATEUSER;
 
     QUrl url(_address + "user");
+    QNetworkRequest request(url);
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(onResult(QNetworkReply*)));
+
+    manager->post(request, postData);
+}
+
+void DatabaseApplication::postEventRequest(QByteArray & postData)
+{
+    qDebug() << "DatabaseApplication::postEventRequest";
+
+    _requestNum = Request::CREATEEVENT;
+
+    QUrl url(_address + "addevent");
     QNetworkRequest request(url);
 
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -93,24 +123,41 @@ void DatabaseApplication::getAllEvents()
     mgr->get(_request);
 }
 
-void DatabaseApplication::getUserEvents()
+void DatabaseApplication::getEvent(QString name, int idUser, QString description)
 {
-    qDebug() << "DatabaseApplication::getUserEvents";
+    qDebug() << "DatabaseApplication::getEvent";
 
-    _requestNum = Request::ALLEVENTS;
+    _requestNum = Request::EVENT;
 
     QNetworkAccessManager * mgr = new QNetworkAccessManager(this);
 
     QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),this,SLOT(onResult(QNetworkReply*)));
     QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),mgr,SLOT(deleteLater()));
 
-    _request.setUrl(QUrl(_address + "Allevents"));
+    _request.setUrl(QUrl(_address + QString::number(idUser)+"/"+name+"/"+description));
+    mgr->get(_request);
+}
+
+void DatabaseApplication::getUserEvents()
+{
+    qDebug() << "DatabaseApplication::getUserEvents";
+
+    _requestNum = Request::USEREVENTS;
+
+    QNetworkAccessManager * mgr = new QNetworkAccessManager(this);
+
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),this,SLOT(onResult(QNetworkReply*)));
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),mgr,SLOT(deleteLater()));
+
+    _request.setUrl(QUrl(_address + "events/"+ QString::number(_modelApplication->currentUser()->ID())));
     mgr->get(_request);
 }
 
 
 bool DatabaseApplication::parseAllEvents(QNetworkReply *reply)
 {
+    qDebug() << "DatabaseApplication::parseAllEvents";
+
     QString data = reply->readAll();
 
     bool result = false;
@@ -130,7 +177,40 @@ bool DatabaseApplication::parseAllEvents(QNetworkReply *reply)
             QString dateString = obj["date"].toString().split("T")[0];
             QDate date = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
 
-            _modelApplication->events()->append(Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString()));
+            _modelApplication->events()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
+        }
+
+        result = true;
+    }
+    return result;
+}
+
+bool DatabaseApplication::parseEvent(QNetworkReply *reply)
+{
+    qDebug() << "DatabaseApplication::parseEvent";
+
+    QString data = reply->readAll();
+
+    bool result = false;
+    if (reply->error() || data.size() < 5)
+    {
+        result = false;
+    }
+    else
+    {
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
+        QJsonArray jsonArray = jsonDoc.array();
+
+        foreach (const QJsonValue & value, jsonArray)
+        {
+            QJsonObject obj = value.toObject();
+
+            QString dateString = obj["date"].toString().split("T")[0];
+            QDate date = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
+
+            _modelApplication->events()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
+            _modelApplication->userEvents()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
+
         }
 
         result = true;
@@ -140,6 +220,8 @@ bool DatabaseApplication::parseAllEvents(QNetworkReply *reply)
 
 bool DatabaseApplication::parseUserEvents(QNetworkReply *reply)
 {
+    qDebug() << "DatabaseApplication::parseUserEvents";
+
     QString data = reply->readAll();
 
     bool result = false;
@@ -159,7 +241,7 @@ bool DatabaseApplication::parseUserEvents(QNetworkReply *reply)
             QString dateString = obj["date"].toString().split("T")[0];
             QDate date = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
 
-            _modelApplication->currentUser()->events()->append(Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString()));
+            _modelApplication->userEvents()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
         }
 
         result = true;
@@ -195,6 +277,8 @@ void DatabaseApplication::disconnect()
 
 bool DatabaseApplication::isDBConnected()
 {
+    qDebug() << "DatabaseApplication::isDBConnected";
+
     test();
     return _connectionState;
 }
@@ -214,6 +298,8 @@ void DatabaseApplication::test()
 
 bool DatabaseApplication::testParser(QNetworkReply *reply)
 {
+    qDebug() << "DatabaseApplication::testParser";
+
     if (reply->error())
     {
         return false;
@@ -226,6 +312,8 @@ bool DatabaseApplication::testParser(QNetworkReply *reply)
 
 void DatabaseApplication::connect(QString name, QString password)
 {
+    qDebug() << "DatabaseApplication::connect";
+
     _requestNum = Request::CONNECT;
 
     QNetworkAccessManager * mgr = new QNetworkAccessManager(this);
@@ -239,6 +327,8 @@ void DatabaseApplication::connect(QString name, QString password)
 
 bool DatabaseApplication::connectParser(QNetworkReply *reply)
 {
+    qDebug() << "DatabaseApplication::connectParser";
+
     QString data = reply->readAll();
 
     bool result = false;

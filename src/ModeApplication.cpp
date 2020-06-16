@@ -13,14 +13,9 @@ ModelApplication::~ModelApplication()
 
 }
 
-QList<Event> *ModelApplication::events()
+EventList *ModelApplication::events()
 {
-    return& _allEvents;
-}
-
-void ModelApplication::setEvents(const QList<Event> &events)
-{
-    _allEvents = events;
+    return &_allEvents;
 }
 
 User *ModelApplication::currentUser()
@@ -31,4 +26,9 @@ User *ModelApplication::currentUser()
 QList<User> *ModelApplication::users()
 {
     return &_users;
+}
+
+EventList *ModelApplication::userEvents()
+{
+    return &_userEvents;
 }
