@@ -41,18 +41,17 @@ QHash<int, QByteArray> EventList::roleNames() const
 
 void EventList::updateEventItem(Event* event)
 {
-//    int id = event->ID();
-//    auto iter = std::find_if(_items.begin(), _items.end(), [id](Event* item)
-//    {
-//            return item->ID() == id;
-//    });
-
-//    if(iter != _items.end())
-//    {
-//        int indx = _items.indexOf(*iter);
-//        _items[indx] = event;
-//        dataChanged(index(indx), index(indx));
-//    }
+    int i = 0;
+    for (i = 0; i < _items.size(); ++i)
+    {
+        Event *event2 = (Event *)_items.at(i);
+        if (event2->ID() == event->ID())
+        {
+            _items[i] = event;
+            dataChanged(index(i), index(i));
+            break;
+        }
+    }
 }
 
 QObject *EventList::findObject(int id)

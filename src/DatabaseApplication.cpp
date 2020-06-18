@@ -108,6 +108,25 @@ void DatabaseApplication::postEventRequest(QByteArray & postData)
     manager->post(request, postData);
 }
 
+void DatabaseApplication::putEventRequest(QByteArray & postData, int id)
+{
+    qDebug() << "DatabaseApplication::putEventRequest";
+
+    _requestNum = Request::CREATEEVENT;
+
+    QUrl url(_address + "eventEdit/"+QString::number(id));
+    QNetworkRequest request(url);
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(onResult(QNetworkReply*)));
+
+    manager->put(request, postData);
+}
+
 void DatabaseApplication::getAllEvents()
 {
     qDebug() << "DatabaseApplication::getAllEvents";

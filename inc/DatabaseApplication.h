@@ -44,6 +44,8 @@ public:
 
     void getEvent(QString name, int idUser, QString description);
 
+    void putEventRequest(QByteArray & postData, int id);
+
     Q_INVOKABLE void deleteEvent(int id);
 
     Q_INVOKABLE bool isConnected() const;

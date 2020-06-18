@@ -79,13 +79,16 @@ MyEventsViewForm {
                     anchors.fill: parent
 
                     onClicked: {
-                        addEditEvent.element.text = "Modifier un évènement"
-                        addEditEvent.visible = true
+                        editEvent.element.text = "Modifier un évènement"
+                        editEvent.visible = true
 
-                        addEditEvent.lineEdit.textInput.text = model.item.name
-                        addEditEvent.lineEdit1.textInput.text = model.item.description
-                        addEditEvent.lineEdit2.textInput.text = model.item.localization
-                        addEditEvent.lineEdit3.textInput.text = model.item.date
+                        editEvent.idStock.text = model.item.id
+                        editEvent.lineEdit.textInput.text = model.item.name
+                        editEvent.lineEdit1.textInput.text = model.item.description
+                        editEvent.lineEdit2.textInput.text = model.item.localization
+                        editEvent.lineEdit3.textInput.text = model.item.date
+
+
                     }
 
                     onPressAndHold: {
@@ -123,21 +126,21 @@ MyEventsViewForm {
 
             area.onClicked:
             {
-                addEditEvent.visible = true
-                addEditEvent.element.text = "Ajouter un évènement"
-                addEditEvent.focus = true
+                addEvent.visible = true
+                addEvent.element.text = "Ajouter un évènement"
+                addEvent.focus = true
 
-                addEditEvent.lineEdit.textInput.text = ""
-                addEditEvent.lineEdit1.textInput.text = ""
-                addEditEvent.lineEdit2.textInput.text = ""
-                addEditEvent.lineEdit3.textInput.text = ""
+                addEvent.lineEdit.textInput.text = ""
+                addEvent.lineEdit1.textInput.text = ""
+                addEvent.lineEdit2.textInput.text = ""
+                addEvent.lineEdit3.textInput.text = ""
             }
         }
     }
 
     AddEditEvent
     {
-        id: addEditEvent
+        id: addEvent
         anchors.centerIn: parent
         visible: false
 
@@ -148,13 +151,38 @@ MyEventsViewForm {
 
         buttonBBF1.mouseArea.onClicked:
         {
-            addEditEvent.visible = false;
+            addEvent.visible = false;
+
         }
 
         buttonBBF.mouseArea.onClicked:
         {
             mainApp.makeEventData(lineEdit.textInput.text, lineEdit1.textInput.text, lineEdit3.textInput.text, lineEdit2.textInput.text)
-            addEditEvent.visible = false;
+            addEvent.visible = false;
+        }
+    }
+
+    AddEditEvent
+    {
+        id: editEvent
+        anchors.centerIn: parent
+        visible: false
+
+        lineEdit.textInput.text : " "
+        lineEdit1.textInput.text : " "
+        lineEdit2.textInput.text : " "
+        lineEdit3.textInput.text : " "
+
+        buttonBBF1.mouseArea.onClicked:
+        {
+            editEvent.visible = false;
+
+        }
+
+        buttonBBF.mouseArea.onClicked:
+        {
+            mainApp.editEventData(lineEdit.textInput.text, lineEdit1.textInput.text, lineEdit3.textInput.text, lineEdit2.textInput.text, parseInt(idStock.text))
+            editEvent.visible = false;
         }
     }
 }

@@ -83,3 +83,35 @@ bool MainApplication::makeEventData(QString name, QString description, QString d
     return true;
 
 }
+
+bool MainApplication::editEventData(QString name, QString description, QString date, QString localization, int id)
+{
+    qDebug() << "MainApplication::makeEventData";
+
+    QJsonObject event;
+    event["name"] = name;
+    event["description"] = description;
+    event["date"] = date;
+    event["localization"] = localization;
+    event["idUser"] = _modelApplication.currentUser()->ID();
+
+
+    Event *eventEdit = (Event *)_modelApplication.userEvents()->findObject(id);
+
+    QString dateString = date.split("T")[0];
+    QDate dateR = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
+    eventEdit->setDate(dateR);
+    eventEdit->setName(name);
+    eventEdit->setLocalization(localization);
+    eventEdit->setDescription(description);
+
+    _modelApplication.userEvents()->updateEventItem(eventEdit);
+
+    QJsonDocument doc(event);
+    QByteArray bytes = doc.toJson();
+
+    _databaseApplication.putEventRequest(bytes, id);
+
+    return true;
+
+}
