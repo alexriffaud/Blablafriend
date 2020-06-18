@@ -34,5 +34,7 @@
         <file>qml/CircleButton.qml</file>
         <file>qml/AddEditEvent.qml</file>
         <file>qml/AddEditEventForm.ui.qml</file>
+        <file>qml/EditProfil.qml</file>
+        <file>qml/EditProfilForm.ui.qml</file>
     </qresource>
 </RCC>

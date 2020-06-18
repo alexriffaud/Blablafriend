@@ -3,6 +3,7 @@ import QtQuick 2.4
 Item {
     width: 400
     height: 800
+    property alias buttonBBF: buttonBBF
     property alias rectangle3: rectangle3
     property alias element4: element4
     property alias image: image
@@ -196,6 +197,15 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 122
             border.width: 1
+        }
+
+        ButtonBBF {
+            id: buttonBBF
+            x: 150
+            y: 751
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 19
         }
 
     }
