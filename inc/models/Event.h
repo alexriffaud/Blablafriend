@@ -7,6 +7,7 @@
 class Event : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int id MEMBER _ID)
     Q_PROPERTY(QString name MEMBER _name)
     Q_PROPERTY(QDate date MEMBER _date)
     Q_PROPERTY(QString description MEMBER _description)

@@ -54,3 +54,15 @@ void EventList::updateEventItem(Event* event)
 //        dataChanged(index(indx), index(indx));
 //    }
 }
+
+QObject *EventList::findObject(int id)
+{
+    for (int i = 0; i < _items.size(); ++i)
+    {
+        Event *event = (Event *)_items.at(i);
+        if (event->ID() == id)
+        {
+            return _items.at(i);
+        }
+    }
+}

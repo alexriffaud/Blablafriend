@@ -10,7 +10,8 @@ enum class Request
     ALLEVENTS,
     USEREVENTS,
     CREATEEVENT,
-    EVENT = 7
+    EVENT,
+    DELETEEVENT = 8
 };
 
 

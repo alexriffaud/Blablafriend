@@ -13,6 +13,8 @@ public:
     int rowCount(const QModelIndex&) const override;
     QVariant data(const QModelIndex& index, int role) const override;
 
+    QObject * findObject(int id);
+
 public slots:
     void insert(QObject* item);
     void remove(QObject* item);

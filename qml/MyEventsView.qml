@@ -82,8 +82,7 @@ MyEventsViewForm {
                         addEditEvent.element.text = "Modifier un évènement"
                         addEditEvent.visible = true
 
-
-                        addEditEvent.lineEdit.textInput.insert(0, model.item.name)
+                        addEditEvent.lineEdit.textInput.text = model.item.name
                         addEditEvent.lineEdit1.textInput.text = model.item.description
                         addEditEvent.lineEdit2.textInput.text = model.item.localization
                         addEditEvent.lineEdit3.textInput.text = model.item.date
@@ -99,9 +98,10 @@ MyEventsViewForm {
                     title: "Suppresion"
                     text: "Voulez-vous supprimer l'évènement " + model.item.name
 
-                    standardButtons: StandardButton.Yes | StandardButton.Abort
+                    standardButtons: StandardButton.Ok | StandardButton.Cancel
                     onAccepted: {
-
+                        console.log("delete")
+                        databaseApp.deleteEvent(model.item.id)
                     }
                     onRejected: {
                         messageDialogQuit.close()

@@ -123,6 +123,25 @@ void DatabaseApplication::getAllEvents()
     mgr->get(_request);
 }
 
+void DatabaseApplication::deleteEvent(int id)
+{
+    qDebug() << "DatabaseApplication::deleteEvent";
+
+    _requestNum = Request::DELETEEVENT;
+
+    QNetworkAccessManager * mgr = new QNetworkAccessManager(this);
+
+
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),this,SLOT(onResult(QNetworkReply*)));
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),mgr,SLOT(deleteLater()));
+
+    _request.setUrl(QUrl(_address + "event/"+QString::number(id)));
+    mgr->deleteResource(_request);
+
+    _modelApplication->userEvents()->remove(_modelApplication->userEvents()->findObject(id));
+}
+
+
 void DatabaseApplication::getEvent(QString name, int idUser, QString description)
 {
     qDebug() << "DatabaseApplication::getEvent";

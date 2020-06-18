@@ -44,6 +44,8 @@ public:
 
     void getEvent(QString name, int idUser, QString description);
 
+    Q_INVOKABLE void deleteEvent(int id);
+
     Q_INVOKABLE bool isConnected() const;
     Q_INVOKABLE void disconnect();
 
@@ -54,6 +56,7 @@ signals:
     void changeLoginState();
 
 private:
+    //App
     ModelApplication        *_modelApplication;
 
     //Network
