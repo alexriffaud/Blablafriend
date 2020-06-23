@@ -1,18 +1,28 @@
-QT += quick location network
+QT += quick location network core
 
 TARGET = ProjectOne
-VERSION = 0.0.1
+VERSION = 0.0.2
 
-CONFIG += debug_and_release
+#QMAKE_LINK += -nostdlib++
+
 CONFIG += c++11
 
-#TODO ARI -> Create bin dir for compile
-#DESTDIR = $${PWD}/lib/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}
-
-DEFINES += APP_VERSION=\"\\\"$${VERSION}\\\"\" \
-
 DEFINES += QT_DEPRECATED_WARNINGS
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+CONFIG(debug, debug|release) {
+    DESTDIR      = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/debug
+    OBJECTS_DIR  = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/debug/obj
+    MOC_DIR      = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/debug/obj
+    RCC_DIR      = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/debug/obj
+    UI_DIR       = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/debug/obj
+}
+CONFIG(release, debug|release) {
+    DESTDIR      = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/release
+    OBJECTS_DIR  = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/release/obj
+    MOC_DIR      = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/release/obj
+    RCC_DIR      = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/release/obj
+    UI_DIR       = $${PWD}/bin/$${QMAKE_HOST.os}_$${QMAKE_HOST.arch}/release/obj
+}
 
 HEADERS += \
     inc/DatabaseApplication.h \
@@ -35,10 +45,12 @@ SOURCES += \
 RESOURCES += qml.qrc
 
 INCLUDEPATH += inc/ \
-               src/ \
                inc/models/ \
-               inc/database \
                inc/tools
+
+android {
+    TEMPLATE = app  # for Android this is an "app"
+}
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -46,7 +58,40 @@ QML_IMPORT_PATH =
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
+}
+
+contains(ANDROID_TARGET_ARCH,x86) {
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
+}
+
+contains(ANDROID_TARGET_ARCH,arm64-v8a) {
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
+}

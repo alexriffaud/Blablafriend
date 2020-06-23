@@ -56,12 +56,14 @@ void EventList::updateEventItem(Event* event)
 
 QObject *EventList::findObject(int id)
 {
+    QObject *object = nullptr;
     for (int i = 0; i < _items.size(); ++i)
     {
         Event *event = (Event *)_items.at(i);
         if (event->ID() == id)
         {
-            return _items.at(i);
+            object = _items.at(i);
         }
     }
+    return object;
 }

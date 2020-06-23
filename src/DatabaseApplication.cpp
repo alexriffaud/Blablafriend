@@ -3,7 +3,7 @@
 DatabaseApplication::DatabaseApplication(ModelApplication *modelApplication)
 {
     _modelApplication = modelApplication;
-    _address = "http://localhost:3000/";
+    _address = "http://env-4709756.hidora.com/";
     _connectionState = false;
     _isConnected = false;
 }
