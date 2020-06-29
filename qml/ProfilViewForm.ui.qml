@@ -119,7 +119,7 @@ Item {
         Rectangle {
             id: rectangle1
             height: 40
-            color: "#ffffff"
+            color: "#bababc"
             anchors.top: parent.top
             anchors.topMargin: 251
             anchors.right: parent.right
