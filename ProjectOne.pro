@@ -3,7 +3,7 @@ QT += quick location network core
 TARGET = ProjectOne
 VERSION = 0.0.2
 
-#QMAKE_LINK += -nostdlib++
+QMAKE_LINK += -nostdlib++
 
 CONFIG += c++11
 

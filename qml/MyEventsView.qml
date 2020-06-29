@@ -42,7 +42,7 @@ MyEventsViewForm {
 
             model: modelUserEvents
             delegate: Rectangle {
-                height: 100
+                height: 130
                 width: parent.width
                 color: "transparent"
                 border.width: 2
@@ -59,6 +59,11 @@ MyEventsViewForm {
                     }
                     Text {
                         text: '<b>Date:</b> ' + model.item.date
+                        color: "white"
+                        x: 10
+                    }
+                    Text {
+                        text: '<b>Heure:</b> ' + model.item.hour
                         color: "white"
                         x: 10
                     }
@@ -86,8 +91,8 @@ MyEventsViewForm {
                         editEvent.lineEdit.textInput.text = model.item.name
                         editEvent.lineEdit1.textInput.text = model.item.description
                         editEvent.lineEdit2.textInput.text = model.item.localization
-                        editEvent.lineEdit3.textInput.text = model.item.date
-
+                        editEvent.lineEdit3.textInput.text = model.item.date.split('T')[0]
+                        editEvent.lineEdit4.textInput.text = model.item.hour
 
                     }
 
@@ -134,6 +139,7 @@ MyEventsViewForm {
                 addEvent.lineEdit1.textInput.text = ""
                 addEvent.lineEdit2.textInput.text = ""
                 addEvent.lineEdit3.textInput.text = ""
+                addEvent.lineEdit4.textInput.text = ""
             }
         }
     }
@@ -148,6 +154,7 @@ MyEventsViewForm {
         lineEdit1.textInput.text : " "
         lineEdit2.textInput.text : " "
         lineEdit3.textInput.text : " "
+        lineEdit4.textInput.text : " "
 
         buttonBBF1.mouseArea.onClicked:
         {
@@ -157,7 +164,7 @@ MyEventsViewForm {
 
         buttonBBF.mouseArea.onClicked:
         {
-            mainApp.makeEventData(lineEdit.textInput.text, lineEdit1.textInput.text, lineEdit3.textInput.text, lineEdit2.textInput.text)
+            mainApp.makeEventData(lineEdit.textInput.text, lineEdit1.textInput.text, lineEdit3.textInput.text, lineEdit2.textInput.text, lineEdit4.textInput.text)
             addEvent.visible = false;
         }
     }
@@ -172,6 +179,7 @@ MyEventsViewForm {
         lineEdit1.textInput.text : " "
         lineEdit2.textInput.text : " "
         lineEdit3.textInput.text : " "
+        lineEdit4.textInput.text : " "
 
         buttonBBF1.mouseArea.onClicked:
         {
@@ -181,7 +189,7 @@ MyEventsViewForm {
 
         buttonBBF.mouseArea.onClicked:
         {
-            mainApp.editEventData(lineEdit.textInput.text, lineEdit1.textInput.text, lineEdit3.textInput.text, lineEdit2.textInput.text, parseInt(idStock.text))
+            mainApp.editEventData(lineEdit.textInput.text, lineEdit1.textInput.text, lineEdit3.textInput.text, lineEdit2.textInput.text, parseInt(idStock.text), lineEdit4.textInput.text)
             editEvent.visible = false;
         }
     }

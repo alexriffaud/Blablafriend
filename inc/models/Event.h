@@ -9,15 +9,16 @@ class Event : public QObject
     Q_OBJECT
     Q_PROPERTY(int id MEMBER _ID)
     Q_PROPERTY(QString name MEMBER _name)
-    Q_PROPERTY(QDate date MEMBER _date)
+    Q_PROPERTY(QString date MEMBER _date)
     Q_PROPERTY(QString description MEMBER _description)
     Q_PROPERTY(QString localization MEMBER _localization)
     Q_PROPERTY(QString author MEMBER _author)
+    Q_PROPERTY(QString hour MEMBER _hour)
 
 public:
     Event();
-    Event(int id, QString name, QDate date, QString description, QString localization, QString author);
-    Event(QString name, QDate date, QString description, QString localization, QString author);
+    Event(int id, QString name, QDate date, QString description, QString localization, QString author, QString hour);
+    Event(QString name, QDate date, QString description, QString localization, QString author, QString hour);
 
     ~Event();
 
@@ -27,7 +28,7 @@ public:
     QString name() const;
     void setName(const QString &name);
 
-    QDate date() const;
+    QString date() const;
     void setDate(const QDate &date);
 
     QString description() const;
@@ -39,13 +40,17 @@ public:
     QString author() const;
     void setAuthor(const QString &author);
 
+    QString hour() const;
+    void setHour(const QString &hour);
+
 private:
     int     _ID;
     QString _name;
-    QDate   _date;
+    QString   _date;
     QString _description;
     QString _localization;
     QString _author;
+    QString _hour;
 };
 
 Q_DECLARE_METATYPE(Event *)

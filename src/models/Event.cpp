@@ -5,23 +5,25 @@ Event::Event()
 
 }
 
-Event::Event(int id, QString name, QDate date, QString description, QString localization, QString author)
+Event::Event(int id, QString name, QDate date, QString description, QString localization, QString author, QString hour)
 {
     _ID = id;
     _name = name;
-    _date = date;
+    _date = date.toString("dd-MM-yyyy");
     _localization = localization;
     _description = description;
     _author = author;
+    _hour = hour;
 }
 
-Event::Event(QString name, QDate date, QString description, QString localization, QString author)
+Event::Event(QString name, QDate date, QString description, QString localization, QString author, QString hour)
 {
     _name = name;
-    _date = date;
+    _date = date.toString("dd-MM-yyyy");
     _localization = localization;
     _description = description;
     _author = author;
+    _hour = hour;
 }
 
 Event::~Event()
@@ -49,14 +51,14 @@ void Event::setName(const QString &name)
     _name = name;
 }
 
-QDate Event::date() const
+QString Event::date() const
 {
     return _date;
 }
 
 void Event::setDate(const QDate &date)
 {
-    _date = date;
+    _date = date.toString("dd-MM-yyyy");
 }
 
 QString Event::description() const
@@ -87,4 +89,14 @@ QString Event::author() const
 void Event::setAuthor(const QString &author)
 {
     _author = author;
+}
+
+QString Event::hour() const
+{
+    return _hour;
+}
+
+void Event::setHour(const QString &hour)
+{
+    _hour = hour;
 }

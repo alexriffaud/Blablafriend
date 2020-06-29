@@ -41,13 +41,15 @@ bool MainApplication::makeUserData(QString email, QString login, QString lastnam
     }
     else
     {
+        QDate dateR = QDate(birthday.split("-")[2].toInt(),birthday.split("-")[1].toInt(),birthday.split("-")[0].toInt());
+
         QJsonObject user;
         user["login"] = login;
         user["firstname"] = firstname;
         user["lastname"] = lastname;
         user["email"] = email;
         user["city"] = city;
-        user["birthday"] = birthday;
+        user["birthday"] = dateR.toString("yyyy-MM-dd");
         user["password"] = password1;
         user["localization"] = QString("");
         user["description"] = description;
@@ -64,16 +66,20 @@ bool MainApplication::makeUserData(QString email, QString login, QString lastnam
     }
 }
 
-bool MainApplication::makeEventData(QString name, QString description, QString date, QString localization)
+bool MainApplication::makeEventData(QString name, QString description, QString date, QString localization, QString hour)
 {
     qDebug() << "MainApplication::makeEventData";
 
+    QDate dateR = QDate(date.split("-")[2].toInt(),date.split("-")[1].toInt(),date.split("-")[0].toInt());
     QJsonObject event;
     event["name"] = name;
     event["description"] = description;
-    event["date"] = date;
+    event["date"] = dateR.toString("yyyy-MM-dd");
     event["localization"] = localization;
     event["idUser"] = _modelApplication.currentUser()->ID();
+    event["hour"] = hour;
+
+
 
     QJsonDocument doc(event);
     QByteArray bytes = doc.toJson();
@@ -84,7 +90,7 @@ bool MainApplication::makeEventData(QString name, QString description, QString d
 
 }
 
-bool MainApplication::editEventData(QString name, QString description, QString date, QString localization, int id)
+bool MainApplication::editEventData(QString name, QString description, QString date, QString localization, int id, QString hour)
 {
     qDebug() << "MainApplication::makeEventData";
 
@@ -94,16 +100,18 @@ bool MainApplication::editEventData(QString name, QString description, QString d
     event["date"] = date;
     event["localization"] = localization;
     event["idUser"] = _modelApplication.currentUser()->ID();
+    event["hour"] = hour;
 
 
     Event *eventEdit = (Event *)_modelApplication.userEvents()->findObject(id);
 
     QString dateString = date.split("T")[0];
-    QDate dateR = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
+    QDate dateR = QDate(dateString.split("-")[2].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[0].toInt());
     eventEdit->setDate(dateR);
     eventEdit->setName(name);
     eventEdit->setLocalization(localization);
     eventEdit->setDescription(description);
+    eventEdit->setHour(hour);
 
     _modelApplication.userEvents()->updateEventItem(eventEdit);
 
@@ -114,4 +122,30 @@ bool MainApplication::editEventData(QString name, QString description, QString d
 
     return true;
 
+}
+
+
+bool MainApplication::makeUserUpdateData(QString login, QString lastname, QString firstname, QString city, QString description)
+{
+    qDebug() << "MainApplication::makeUserUpdateData";
+
+    QJsonObject user;
+    user["login"] = login;
+    user["firstname"] = firstname;
+    user["lastname"] = lastname;
+    user["city"] = city;
+    user["description"] = description;
+
+    _modelApplication.currentUser()->setLogin(login);
+    _modelApplication.currentUser()->setLastname(lastname);
+    _modelApplication.currentUser()->setFirstname(firstname);
+    _modelApplication.currentUser()->setCity(city);
+    _modelApplication.currentUser()->setDescription(description);
+
+    QJsonDocument doc(user);
+    QByteArray bytes = doc.toJson();
+
+    _databaseApplication.putUserRequest(bytes, _modelApplication.currentUser()->ID());
+
+    return true;
 }

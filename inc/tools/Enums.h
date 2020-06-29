@@ -11,7 +11,8 @@ enum class Request
     USEREVENTS,
     CREATEEVENT,
     EVENT,
-    DELETEEVENT = 8
+    DELETEEVENT,
+    UPDATEUSER = 9
 };
 
 

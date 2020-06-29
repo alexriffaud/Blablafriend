@@ -3,6 +3,7 @@ import QtQuick 2.4
 Item {
     width: 260
     height: 311
+    property alias lineEdit4: lineEdit4
     property alias idStock: idStock
     property alias lineEdit3: lineEdit3
     property alias buttonBBF1: buttonBBF1
@@ -63,7 +64,7 @@ Item {
             x: 8
             anchors.horizontalCenterOffset: 0
             anchors.top: parent.top
-            anchors.topMargin: 177
+            anchors.topMargin: 216
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -99,6 +100,16 @@ Item {
             text: qsTr("Text")
             visible: false
             font.pixelSize: 12
+        }
+
+        LineEdit {
+            id: lineEdit4
+            x: -5
+            y: 14
+            anchors.top: parent.top
+            anchors.horizontalCenterOffset: 0
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 180
         }
     }
 }

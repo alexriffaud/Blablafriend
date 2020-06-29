@@ -19,8 +19,10 @@ public:
 
     Q_INVOKABLE void login(const QString &login, const QString &password);
     Q_INVOKABLE bool makeUserData(QString email, QString login, QString lastname, QString firstname, QString birthday, QString city, QString password1, QString password2, QString description);
-    Q_INVOKABLE bool makeEventData(QString name, QString description, QString date, QString localization);
-    Q_INVOKABLE bool editEventData(QString name, QString description, QString date, QString localization, int id);
+    Q_INVOKABLE bool makeEventData(QString name, QString description, QString date, QString localization, QString hour);
+    Q_INVOKABLE bool editEventData(QString name, QString description, QString date, QString localization, int id, QString hour);
+    Q_INVOKABLE bool makeUserUpdateData(QString login, QString lastname, QString firstname, QString city, QString description);
+
 
     DatabaseApplication *getDatabaseApplication();
     Q_INVOKABLE User *getCurrentUser();

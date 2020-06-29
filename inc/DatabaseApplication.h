@@ -38,6 +38,8 @@ public:
     void getUserEvents();
     bool parseUserEvents(QNetworkReply *reply);
 
+    void putUserRequest(QByteArray & postData, int id);
+
     void postEventRequest(QByteArray & postData);
     void getEvent();
     bool parseEvent(QNetworkReply *reply);

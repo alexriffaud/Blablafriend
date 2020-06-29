@@ -60,6 +60,12 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
             parseEvent(reply);
             break;
         }
+        case Request::UPDATEUSER:
+        {
+            qDebug() << "Request::UPDATEUSER";
+            parseEvent(reply);
+            break;
+        }
         default:
         {
             break;
@@ -115,6 +121,25 @@ void DatabaseApplication::putEventRequest(QByteArray & postData, int id)
     _requestNum = Request::CREATEEVENT;
 
     QUrl url(_address + "eventEdit/"+QString::number(id));
+    QNetworkRequest request(url);
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(onResult(QNetworkReply*)));
+
+    manager->put(request, postData);
+}
+
+void DatabaseApplication::putUserRequest(QByteArray & postData, int id)
+{
+    qDebug() << "DatabaseApplication::putUserRequest";
+
+    _requestNum = Request::UPDATEUSER;
+
+    QUrl url(_address + "user/"+QString::number(id));
     QNetworkRequest request(url);
 
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -215,7 +240,7 @@ bool DatabaseApplication::parseAllEvents(QNetworkReply *reply)
             QString dateString = obj["date"].toString().split("T")[0];
             QDate date = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
 
-            _modelApplication->events()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
+            _modelApplication->events()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString(), obj["hour"].toString()));
         }
 
         result = true;
@@ -246,8 +271,8 @@ bool DatabaseApplication::parseEvent(QNetworkReply *reply)
             QString dateString = obj["date"].toString().split("T")[0];
             QDate date = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
 
-            _modelApplication->events()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
-            _modelApplication->userEvents()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
+            _modelApplication->events()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString(), obj["hour"].toString()));
+            _modelApplication->userEvents()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString(), obj["hour"].toString()));
 
         }
 
@@ -279,7 +304,7 @@ bool DatabaseApplication::parseUserEvents(QNetworkReply *reply)
             QString dateString = obj["date"].toString().split("T")[0];
             QDate date = QDate(dateString.split("-")[0].toInt(),dateString.split("-")[1].toInt(),dateString.split("-")[2].toInt());
 
-            _modelApplication->userEvents()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString()));
+            _modelApplication->userEvents()->insert(new Event(obj["id"].toInt(), obj["name"].toString(), date, obj["description"].toString(), obj["localization"].toString(), obj["login"].toString(), obj["hour"].toString()));
         }
 
         result = true;

@@ -4,7 +4,6 @@ Item {
     width: 400
     height: 400
     property alias listView: listView
-    property alias circleButton: circleButton
 
     Rectangle {
         id: rectangle
@@ -38,7 +37,7 @@ Item {
 
         model: modelEvents
         delegate: Rectangle {
-            height: 100
+            height: 130
             width: parent.width
             color: "transparent"
             border.width: 2
@@ -59,6 +58,11 @@ Item {
                     x: 10
                 }
                 Text {
+                    text: '<b>Heure:</b> ' + model.item.hour
+                    color: "white"
+                    x: 10
+                }
+                Text {
                     text: '<b>Description:</b> ' + model.item.description
                     color: "white"
                     x: 10
@@ -70,15 +74,5 @@ Item {
                 }
             }
         }
-    }
-
-    CircleButton {
-        id: circleButton
-        x: 342
-        y: 342
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 8
-        anchors.right: parent.right
-        anchors.rightMargin: 8
     }
 }
