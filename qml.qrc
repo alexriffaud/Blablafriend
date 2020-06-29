@@ -36,5 +36,7 @@
         <file>qml/AddEditEventForm.ui.qml</file>
         <file>qml/EditProfil.qml</file>
         <file>qml/EditProfilForm.ui.qml</file>
+        <file>qml/EventView.qml</file>
+        <file>qml/EventViewForm.ui.qml</file>
     </qresource>
 </RCC>
