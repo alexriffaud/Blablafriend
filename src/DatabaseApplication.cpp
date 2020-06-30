@@ -66,6 +66,18 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
             parseEvent(reply);
             break;
         }
+        case Request::EVENTPARTICIPATE:
+        {
+            qDebug() << "Request::EVENTPARTICIPATE";
+            parseParticipateEvent(reply);
+            break;
+        }
+        case Request::ADDEVENTPARTICIPATE:
+        {
+            qDebug() << "Request::ADDEVENTPARTICIPATE";
+
+            break;
+        }
         default:
         {
             break;
@@ -78,7 +90,7 @@ QVariant DatabaseApplication::onResult(QNetworkReply *reply)
 
 void DatabaseApplication::postUserRequest(QByteArray & postData)
 {
-    qDebug() << "DatabaseApplication::postRequest";
+    qDebug() << "DatabaseApplication::postUserRequest";
 
     _requestNum = Request::CREATEUSER;
 
@@ -94,6 +106,26 @@ void DatabaseApplication::postUserRequest(QByteArray & postData)
 
     manager->post(request, postData);
 }
+
+void DatabaseApplication::postParticipateRequest(QByteArray & postData, int idEvent, int idUser)
+{
+    qDebug() << "DatabaseApplication::postParticipateRequest";
+
+    _requestNum = Request::ADDEVENTPARTICIPATE;
+
+    QUrl url(_address + "participate/"+QString::number(idUser) +"/"+ QString::number(idEvent));
+    QNetworkRequest request(url);
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(onResult(QNetworkReply*)));
+
+    manager->post(request, postData);
+}
+
 
 void DatabaseApplication::postEventRequest(QByteArray & postData)
 {
@@ -165,6 +197,41 @@ void DatabaseApplication::getAllEvents()
 
     _request.setUrl(QUrl(_address + "Allevents"));
     mgr->get(_request);
+}
+
+void DatabaseApplication::getEventParticipate(int id)
+{
+    qDebug() << "DatabaseApplication::getEventParticipate";
+
+    _requestNum = Request::EVENTPARTICIPATE;
+
+    QNetworkAccessManager * mgr = new QNetworkAccessManager(this);
+
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),this,SLOT(onResult(QNetworkReply*)));
+    QObject::connect(mgr,SIGNAL(finished(QNetworkReply*)),mgr,SLOT(deleteLater()));
+
+    _request.setUrl(QUrl(_address + "participate/"+QString::number(id)));
+    mgr->get(_request);
+}
+
+bool DatabaseApplication::parseParticipateEvent(QNetworkReply *reply)
+{
+    qDebug() << "DatabaseApplication::parseParticipateEvent";
+
+    QString data = reply->readAll();
+
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
+    QJsonArray jsonArray = jsonDoc.array();
+
+    _modelApplication->userList()->clear();
+
+    foreach (const QJsonValue & value, jsonArray)
+    {
+        QJsonObject obj = value.toObject();
+
+        _modelApplication->userList()->insert(new User(obj["login"].toString()));
+    }
+    return true;
 }
 
 void DatabaseApplication::deleteEvent(int id)

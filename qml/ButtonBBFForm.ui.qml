@@ -3,6 +3,7 @@ import QtQuick 2.4
 Item {
     width: 100
     height: 30
+    property alias rectangle: rectangle
     property alias textButton: textButton
     property alias mouseArea: mouseArea
     property alias rectangle1: rectangle1

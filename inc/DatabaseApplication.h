@@ -48,6 +48,10 @@ public:
 
     void putEventRequest(QByteArray & postData, int id);
 
+    Q_INVOKABLE void getEventParticipate(int id);
+    bool parseParticipateEvent(QNetworkReply *reply);
+    void postParticipateRequest(QByteArray & postData, int idEvent, int idUser);
+
     Q_INVOKABLE void deleteEvent(int id);
 
     Q_INVOKABLE bool isConnected() const;

@@ -5,6 +5,11 @@ User::User()
 
 }
 
+User::User(QString login)
+{
+    _login = login;
+}
+
 User::~User()
 {
 

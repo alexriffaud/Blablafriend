@@ -22,6 +22,9 @@ public:
     Q_INVOKABLE bool makeEventData(QString name, QString description, QString date, QString localization, QString hour);
     Q_INVOKABLE bool editEventData(QString name, QString description, QString date, QString localization, int id, QString hour);
     Q_INVOKABLE bool makeUserUpdateData(QString login, QString lastname, QString firstname, QString city, QString description);
+    Q_INVOKABLE bool makeParticipateData(int event);
+
+    Q_INVOKABLE bool checkAuthor();
 
 
     DatabaseApplication *getDatabaseApplication();

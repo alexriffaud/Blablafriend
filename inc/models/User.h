@@ -11,8 +11,11 @@
 class User : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString loginUser MEMBER _login)
 public:
     User();
+    User(QString login);
     ~User();
 
     int ID() const;

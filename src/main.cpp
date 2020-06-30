@@ -30,6 +30,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("currentUser", mainApp.getModelApplication()->currentUser());
     engine.rootContext()->setContextProperty("modelEvents", mainApp.getModelApplication()->events());
     engine.rootContext()->setContextProperty("modelUserEvents", mainApp.getModelApplication()->userEvents());
+    engine.rootContext()->setContextProperty("modelParticipateEvent", mainApp.getModelApplication()->userList());
+
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

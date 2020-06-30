@@ -1,6 +1,8 @@
 import QtQuick 2.4
+import QtQuick.Dialogs 1.2
 
 EventsViewForm {
+    id: eventsView
     anchors.fill: parent
     Item {
         id: item
@@ -8,8 +10,10 @@ EventsViewForm {
         height: 400
         anchors.fill: parent
         property alias listView: listView
+        clip: true
 
         Rectangle {
+            clip: true
             id: rectangle
             anchors.topMargin: 0
             gradient: Gradient {
@@ -38,15 +42,18 @@ EventsViewForm {
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             spacing: 5
+            clip: true
 
             model: modelEvents
             delegate: Rectangle {
+                clip: true
                 height: 130
                 width: parent.width
                 color: "transparent"
                 border.width: 2
                 border.color: "white"
                 Column {
+                    clip: true
                     Text {
                         text: " "
                         x: 10
@@ -81,17 +88,63 @@ EventsViewForm {
                 MouseArea {
                     id: mousearea1
                     anchors.fill: parent
-
+                    clip: true
                     onClicked: {
-                        visible: true
+                        item.visible = false
+                        eventView.visible = true
+                        eventView.name.text = model.item.name
+                        eventView.localization.text = model.item.localization
+                        eventView.date.text = model.item.date
+                        eventView.hour.text = model.item.hour
+                        eventView.author.text = model.item.author
+                        eventView.description.text = model.item.description
+                        eventView.idevent.text = model.item.id
 
+                        databaseApp.getEventParticipate(model.item.id)
+                        eventView.checkAuth()
                     }
                 }
+            }
+        }
+    }
+    EventView {
+        clip: true
+        id: eventView
+        anchors.fill: parent
+        visible: false
 
-                EventView {
-                    id: eventView
-                    visible: false
-                }
+        buttonBBF.textButton.text: "Participer"
+        buttonBBF1.textButton.text: "Retour"
+        buttonBBF1.mouseArea.onClicked: {
+            eventsView.visible = true
+            eventView.visible = false
+        }
+
+
+
+        function checkAuth()
+        {
+            if(mainApp.checkAuthor())
+            {
+                buttonBBF.rectangle.color = "grey"
+                buttonBBF.mouseArea.visible = false
+            }
+            else
+            {
+                buttonBBF.textButton.text = "Participer"
+                buttonBBF.rectangle.color = "#063d5b"
+                buttonBBF.mouseArea.visible = true
+            }
+        }
+
+        MessageDialog {
+            id: messageDialogConfirmation
+            title: "Confirmation"
+            text: "Vous allez participer à l'évènement " + eventView.name.text
+
+            standardButtons: StandardButton.Ok
+            onAccepted: {
+                messageDialogConfirmation.close()
             }
         }
     }

@@ -2,6 +2,8 @@
 
 ModelApplication::ModelApplication() :
     _allEvents(),
+    _userEvents(),
+    _userList(),
     _currentUser(),
     _users()
 {
@@ -31,4 +33,9 @@ QList<User> *ModelApplication::users()
 EventList *ModelApplication::userEvents()
 {
     return &_userEvents;
+}
+
+UserList *ModelApplication::userList()
+{
+    return &_userList;
 }

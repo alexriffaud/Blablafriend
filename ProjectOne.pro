@@ -31,7 +31,8 @@ HEADERS += \
     inc/models/User.h \
     inc/models/Event.h \
     inc/tools/Enums.h \
-    inc/tools/EventList.h
+    inc/tools/EventList.h \
+    inc/tools/UserList.h
 
 SOURCES += \
         src/DatabaseApplication.cpp \
@@ -40,7 +41,8 @@ SOURCES += \
         src/main.cpp \
         src/models/User.cpp \
         src/models/Event.cpp \
-    src/tools/EventList.cpp
+    src/tools/EventList.cpp \
+    src/tools/UserList.cpp
 
 RESOURCES += qml.qrc
 

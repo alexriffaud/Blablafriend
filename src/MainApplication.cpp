@@ -149,3 +149,35 @@ bool MainApplication::makeUserUpdateData(QString login, QString lastname, QStrin
 
     return true;
 }
+
+bool MainApplication::makeParticipateData(int event)
+{
+    qDebug() << "MainApplication::makeParticipateData";
+
+    QJsonObject user;
+
+    QJsonDocument doc(user);
+    QByteArray bytes = doc.toJson();
+
+    _modelApplication.userList()->insert(new User(_modelApplication.currentUser()->login()));
+
+    _databaseApplication.postParticipateRequest(bytes, event ,_modelApplication.currentUser()->ID());
+
+    return true;
+}
+
+bool MainApplication::checkAuthor()
+{
+
+    for(QVector<QObject *>::iterator it = _modelApplication.userList()->items()->begin(); it != _modelApplication.userList()->items()->end(); it++)
+    {
+        User * user = (User *)*(it);
+        if(user->login() == _modelApplication.currentUser()->login())
+        {
+            delete user;
+            return true;
+        }
+        delete user;
+    }
+    return false;
+}
