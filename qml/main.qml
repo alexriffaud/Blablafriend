@@ -218,12 +218,12 @@ Window
                                    lineEdit7.textInput.text,
                                    lineEdit9.textInput.text))
                {
-                   profilView.element.text = currentUser.fullName()
-                   profilView.element1.text = currentUser.city()
-                   profilView.element2.text = currentUser.login()
-                   profilView.element3.text = currentUser.email()
-                   profilView.element4.text = currentUser.birthday()
-                   profilView.element5.text = currentUser.description()
+                   profilView.element.text = lineEdit2.textInput.text.toUpperCase() + " " + lineEdit3.textInput.text
+                   profilView.element1.text = lineEdit5.textInput.text
+                   profilView.element2.text = lineEdit1.textInput.text
+                   profilView.element3.text = lineEdit.textInput.text
+                   profilView.element4.text = lineEdit4.textInput.text
+                   profilView.element5.text = lineEdit9.textInput.text
 
                    profilView.rectangle3.color = "green"
 
@@ -404,6 +404,7 @@ Window
                 profilView.visible = false
                 mapView.visible = true
                 mapView.opacity = 1
+                mapView.positionSource.start()
                 break
             case 3:
                 parametersView.visible = false

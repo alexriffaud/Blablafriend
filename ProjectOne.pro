@@ -1,9 +1,26 @@
-QT += quick location network core
+QT += quick location network core positioning sensors
 
 TARGET = ProjectOne
-VERSION = 0.0.2
 
-QMAKE_LINK += -nostdlib++
+defineReplace(droidVersionCode) {
+        segments = $$split(1, ".")
+        for (segment, segments): vCode = "$$first(vCode)$$format_number($$segment, width=3 zeropad)"
+
+        contains(ANDROID_TARGET_ARCH, arm64-v8a): \
+            suffix = 1
+        else:contains(ANDROID_TARGET_ARCH, armeabi-v7a): \
+            suffix = 0
+        # add more cases as needed
+
+        return($$first(vCode)$$first(suffix))
+}
+
+VERSION = 1.0.0
+ANDROID_VERSION_NAME = $$VERSION
+ANDROID_VERSION_CODE = $$droidVersionCode($$ANDROID_VERSION_NAME)
+
+
+# QMAKE_LINK += -nostdlib++
 
 CONFIG += c++11
 
@@ -86,6 +103,8 @@ DISTFILES += \
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
+
+    ANDROID_EXTRA_LIBS =
 }
 
 contains(ANDROID_TARGET_ARCH,x86) {

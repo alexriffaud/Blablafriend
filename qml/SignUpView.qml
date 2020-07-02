@@ -12,7 +12,7 @@ SignUpViewForm
     lineEdit7.labelText.text: "Password"
     lineEdit9.labelText.text: "Description"
     lineEdit4.labelText.text: "Date de naissance"
-    lineEdit3.textInput.validator: RegExpValidator { regExp: /[0-9]{2}\-[0-9]{2}\-[0-9]{4}/}
+    lineEdit4.textInput.validator: RegExpValidator { regExp: /[0-9]{2}\-[0-9]{2}\-[0-9]{4}/}
 
 
     lineEdit6.textInput.echoMode: "Password"
@@ -20,11 +20,12 @@ SignUpViewForm
 
     buttonForm.textButton.text: "Valider"
 
-    lineEdit.textInput.text : ""
-    lineEdit1.textInput.text : ""
-    lineEdit2.textInput.text : ""
-    lineEdit3.textInput.text : ""
-    lineEdit5.textInput.text : ""
-    lineEdit6.textInput.text : ""
+    lineEdit.textInput.text : "Email"
+    lineEdit1.textInput.text : "Pseudo"
+    lineEdit2.textInput.text : "Nom"
+    lineEdit3.textInput.text : "Prénom"
+    lineEdit4.textInput.text : "01-01-2000"
+    lineEdit5.textInput.text : "Paris"
+    lineEdit9.textInput.text : "Description"
     lineEdit7.textInput.text : ""
 }

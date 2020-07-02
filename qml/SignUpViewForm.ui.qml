@@ -169,12 +169,14 @@ Item {
 
             LineEdit {
                 id: lineEdit4
-                x: 0
-                y: 200
-                width: 384
                 height: 30
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.top: parent.top
+                anchors.topMargin: 200
             }
-
         }
     }
 }
@@ -189,3 +191,8 @@ D{i:19;anchors_x:0;anchors_y:206}D{i:7;anchors_height:498;anchors_width:384;anch
 }
 ##^##*/
 
+
+/*##^## Designer {
+    D{i:18;anchors_width:384;anchors_x:0;anchors_y:200}
+}
+ ##^##*/
