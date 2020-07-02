@@ -46,14 +46,12 @@ EventsViewForm {
 
             model: modelEvents
             delegate: Rectangle {
-                clip: true
                 height: 130
                 width: parent.width
                 color: "transparent"
                 border.width: 2
                 border.color: "white"
                 Column {
-                    clip: true
                     Text {
                         text: " "
                         x: 10
@@ -88,7 +86,6 @@ EventsViewForm {
                 MouseArea {
                     id: mousearea1
                     anchors.fill: parent
-                    clip: true
                     onClicked: {
                         item.visible = false
                         eventView.visible = true
